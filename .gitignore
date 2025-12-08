@@ -41,3 +41,5 @@ Ballerina.lock
 
 #Ballerina
 Config.toml
+
+.env
