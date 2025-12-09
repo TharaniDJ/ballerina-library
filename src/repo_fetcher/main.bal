@@ -1,5 +1,7 @@
 import ballerina/io;
 import ballerina/os;
+import ballerina/http;
+import ballerina/file;
 import ballerinax/github;
 
 // Repository record type
@@ -13,9 +15,77 @@ type Repository record {|
     string releaseAssetName;
 |};
 
+// Update result record
+type UpdateResult record {|
+    Repository repo;
+    string oldVersion;
+    string newVersion;
+    string downloadUrl;
+    string localPath;
+|};
+
 // Check for version updates
 function hasVersionChanged(string oldVersion, string newVersion) returns boolean {
     return oldVersion != newVersion;
+}
+
+// Download OpenAPI spec from release asset
+function downloadSpec(github:Client githubClient, string owner, string repo, 
+                     string assetName, string tagName, string localPath) returns error? {
+    
+    io:println(string `  📥 Downloading ${assetName}...`);
+    
+    // Get release by tag
+    github:Release release = check githubClient->/repos/[owner]/[repo]/releases/tags/[tagName]();
+    
+    // Find the asset
+    github:ReleaseAsset[]? assets = release.assets;
+    if assets is () {
+        return error(string `No assets found in release ${tagName}`);
+    }
+    
+    string? downloadUrl = ();
+    foreach github:ReleaseAsset asset in assets {
+        if asset.name == assetName {
+            downloadUrl = asset.browser_download_url;
+            break;
+        }
+    }
+    
+    if downloadUrl is () {
+        // If no asset found, try to download from the repo directly
+        io:println(string `  ⚠️  Asset ${assetName} not found in release, trying direct download...`);
+        downloadUrl = string `https://raw.githubusercontent.com/${owner}/${repo}/${tagName}/${assetName}`;
+    }
+    
+    // Download the file
+    http:Client httpClient = check new (<string>downloadUrl);
+    http:Response response = check httpClient->get("");
+    
+    if response.statusCode != 200 {
+        return error(string `Failed to download: HTTP ${response.statusCode}`);
+    }
+    
+    // Get content
+    string|byte[]|error content = response.getTextPayload();
+    
+    // Create directory if it doesn't exist
+    string dirPath = check file:parentPath(localPath);
+    if !check file:test(dirPath, file:EXISTS) {
+        check file:createDir(dirPath, file:RECURSIVE);
+    }
+    
+    // Write to file
+    if content is string {
+        check io:fileWriteString(localPath, content);
+    } else if content is byte[] {
+        check io:fileWriteBytes(localPath, content);
+    } else {
+        return error("Failed to get content from response");
+    }
+    
+    io:println(string `  ✅ Downloaded to ${localPath}`);
+    return;
 }
 
 // Main monitoring function
@@ -36,60 +106,32 @@ public function main() returns error? {
     // Validate token
     if tokenValue.length() == 0 {
         io:println("❌ Error: GH_TOKEN is empty!");
-        io:println("The environment variable exists but contains no value.");
         return;
     }
     
     io:println(string `🔍 Token loaded (length: ${tokenValue.length()})`);
     
-    // Initialize GitHub client using Ballerina connector
+    // Initialize GitHub client
     github:Client githubClient = check new ({
         auth: {
             token: tokenValue
         }
     });
     
-    // Sample repositories (will be loaded from repos.json later)
-    Repository[] repos = [
-        {
-            owner: "stripe",
-            repo: "openapi",
-            name: "Stripe OpenAPI",
-            lastVersion: "v0.0.0",
-            lastChecked: "2025-01-01T00:00:00Z",
-            specPath: "openapi/spec3.yaml",
-            releaseAssetName: "spec3.yaml"
-        },
-        {
-            owner: "twilio",
-            repo: "twilio-oai",
-            name: "Twilio OpenAPI",
-            lastVersion: "2.50.0",
-            lastChecked: "2025-01-01T00:00:00Z",
-            specPath: "twilio_api.json",
-            releaseAssetName: "twilio_api.json"
-        },
-        {
-            owner: "openai",
-            repo: "openai-openapi",
-            name: "OpenAI OpenAPI",
-            lastVersion: "1.0.0",
-            lastChecked: "2025-01-01T00:00:00Z",
-            specPath: "openapi.yaml",
-            releaseAssetName: "openapi.yaml"
-        }
-    ];
+    // Load repositories from repos.json
+    json reposJson = check io:fileReadJson("repos.json");
+    Repository[] repos = check reposJson.cloneWithType();
     
     io:println(string `Found ${repos.length()} repositories to monitor.\n`);
     
     // Track updates
-    Repository[] updatedRepos = [];
+    UpdateResult[] updates = [];
     
     // Check each repository
     foreach Repository repo in repos {
         io:println(string `Checking: ${repo.name} (${repo.owner}/${repo.repo})`);
         
-        // Get latest release using GitHub connector REST API resource method
+        // Get latest release
         github:Release|error latestRelease = githubClient->/repos/[repo.owner]/[repo.repo]/releases/latest();
         
         if latestRelease is github:Release {
@@ -108,20 +150,45 @@ public function main() returns error? {
                 
                 if hasVersionChanged(repo.lastVersion, tagName) {
                     io:println(string `  ✅ UPDATE AVAILABLE!`);
-                    repo.lastVersion = tagName;
-                    updatedRepos.push(repo);
+                    
+                    // Define local path for the spec
+                    string localPath = string `specs/${repo.owner}/${repo.repo}/${repo.releaseAssetName}`;
+                    
+                    // Download the spec
+                    error? downloadResult = downloadSpec(
+                        githubClient, 
+                        repo.owner, 
+                        repo.repo, 
+                        repo.releaseAssetName, 
+                        tagName, 
+                        localPath
+                    );
+                    
+                    if downloadResult is error {
+                        io:println(string `  ❌ Download failed: ${downloadResult.message()}`);
+                    } else {
+                        // Track the update
+                        updates.push({
+                            repo: repo,
+                            oldVersion: repo.lastVersion,
+                            newVersion: tagName,
+                            downloadUrl: string `https://github.com/${repo.owner}/${repo.repo}/releases/tag/${tagName}`,
+                            localPath: localPath
+                        });
+                        
+                        // Update the repo record
+                        repo.lastVersion = tagName;
+                    }
                 } else {
                     io:println(string `  ℹ️  No updates`);
                 }
             }
         } else {
-            // Handle errors more gracefully
             string errorMsg = latestRelease.message();
             if errorMsg.includes("404") {
                 io:println(string `  ❌ Error: No releases found for ${repo.owner}/${repo.repo}`);
             } else if errorMsg.includes("401") || errorMsg.includes("403") {
                 io:println(string `  ❌ Error: Authentication failed`);
-                io:println(string `     Check if your GitHub token is valid and has the correct permissions`);
             } else {
                 io:println(string `  ❌ Error: ${errorMsg}`);
             }
@@ -131,12 +198,29 @@ public function main() returns error? {
     }
     
     // Report updates
-    if updatedRepos.length() > 0 {
-        io:println(string `\n🎉 Found ${updatedRepos.length()} updates:\n`);
-        foreach Repository updatedRepo in updatedRepos {
-            io:println(string `- ${updatedRepo.name}: ${updatedRepo.lastVersion}`);
+    if updates.length() > 0 {
+        io:println(string `\n🎉 Found ${updates.length()} updates:\n`);
+        
+        // Create update summary
+        string[] updateSummary = [];
+        foreach UpdateResult update in updates {
+            string summary = string `- ${update.repo.name}: ${update.oldVersion} → ${update.newVersion}`;
+            io:println(summary);
+            updateSummary.push(summary);
         }
-        io:println("\n📌 Next steps: Create GitHub issues or notify via Slack");
+        
+        // Update repos.json
+        check io:fileWriteJson("repos.json", repos.toJson());
+        io:println("\n✅ Updated repos.json with new versions");
+        
+        // Write update summary for shell script to use
+        string summaryContent = string:'join("\n", ...updateSummary);
+        check io:fileWriteString("UPDATE_SUMMARY.txt", summaryContent);
+        
+        io:println("\n📌 Next steps:");
+        io:println("1. Run the shell script to create a PR");
+        io:println("2. ./scripts/create-pr.sh");
+        
     } else {
         io:println("✨ All specifications are up-to-date!");
     }
