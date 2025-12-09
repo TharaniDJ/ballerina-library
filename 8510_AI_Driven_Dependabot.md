@@ -10,7 +10,7 @@
 - **Issue**
   - [1383](https://github.com/ballerina-platform/ballerina-library/issues/8510)
 - **State**
-  - 
+  - InProgress
 
 ---
 
@@ -28,12 +28,6 @@ This project introduces an AI-driven Dependabot-like system that automatically i
 - Develop a persistent GitOps workflow integration model.
 - Minimize developer intervention while maintaining reliability and traceability.
 
----
-
-## Non-Goals
-- Replacement of the existing connector-generation framework.
-- Fully autonomous connector merging without human approval.
-- Handling non–OpenAPI-driven connectors.
 
 ---
 
@@ -109,16 +103,6 @@ It uses AI techniques to:
 
 ---
 
-## Proposed Timeline
-| Phase | Duration | Description |
-|------|----------|-------------|
-| Research & Analysis | 1 month | Study connector patterns, gather OpenAPI semantics, validate feasibility |
-| System Design | 1 month | Define workflows, AI architecture & GitOps approach |
-| Prototype Development | 2 months | Implement AI change detector and basic PR creation |
-| Integration & Testing | 1 month | Validate correctness, refine generation heuristics |
-| Documentation & Refinement | 1 month | Finalize tooling, publish user guides, complete evaluation |
-
----
 
 ## Initial Feasibility Analysis
 - Ballerina connector structure is standardized—good for automation.
@@ -159,19 +143,13 @@ It uses AI techniques to:
 
 ---
 
-## Learning Resources
-- Ballerina Connector Development Process  
-- Ballerina By Example  
-- Ballerina for AI  
-- Dependabot  
-- GitOps workflows with GitHub Actions  
+## Testing
 
----
+1. **Validation of Automated Pull Requests**  
+   - Ensure generated PRs contain the correct connector changes, summaries, and do not introduce build failures.
 
-## Participants
-| Role | Member |
-|------|--------|
-| Student Developer | 1 |
-| Mentor | Thisaru Guruge |
-| Duration | 6 months |
+2. **Regression Testing of Re-generated Connectors**  
+   - Automatically run connector test suites after regeneration to guarantee compatibility and prevent breaking changes.
 
+3. **Accuracy Evaluation of OpenAPI Diff and AI Decisions**  
+   - Compare detected semantic changes against ground truth; measure false positives/negatives to refine AI reasoning.
