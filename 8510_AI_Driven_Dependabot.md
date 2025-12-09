@@ -1,15 +1,16 @@
 # AI-driven Dependabot for OpenAPI Connectors  
 **Project 593 — WSO2 Integrator**
 
-- Authors 
-    -Tharani Jayaratne
-- Reviewed by
-    -Thisaru Guruge
-- Created date
-    -2025-12-09
-- Issue
-
-- State
+- **Authors**
+  - Tharani Jayaratne
+- **Reviewed by**
+  - Thisaru Guruge
+- **Created date**
+  - 2025-12-09
+- **Issue**
+  - [1383](https://github.com/ballerina-platform/ballerina-library/issues/8510)
+- **State**
+  - 
 
 ---
 
