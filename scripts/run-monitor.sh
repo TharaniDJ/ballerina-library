@@ -1,36 +1,109 @@
-#!/usr/bin/env bash
-set -euo pipefail
+name: OpenAPI Specification Monitor
 
-# Colors
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-YELLOW='\033[1;33m'
-NC='\033[0m'
 
-echo -e "${BLUE}=== OpenAPI Dependabot Monitor ===${NC}\n"
+on:
+ schedule:
+   # Run daily at 9 AM UTC
+   - cron: '0 9 * * *'
+ workflow_dispatch: # Allow manual trigger
 
-# Step 1: Run the Ballerina monitor
-echo -e "${BLUE}Step 1: Checking for OpenAPI updates...${NC}"
-bal run main.bal
 
-# Step 2: Check if updates were found
-if [ ! -f "UPDATE_SUMMARY.txt" ]; then
-  echo -e "${YELLOW}No updates found. Exiting.${NC}"
-  exit 0
-fi
+permissions:
+ contents: write
+ pull-requests: write
 
-# Step 3: Ask user if they want to create a PR
-echo -e "\n${GREEN}Updates found!${NC}"
-cat UPDATE_SUMMARY.txt
-echo ""
 
-read -p "Create a Pull Request with these updates? (y/n) " -n 1 -r
-echo ""
+jobs:
+ monitor-and-update:
+   runs-on: ubuntu-latest
+  
+   steps:
+     - name: Checkout repository
+       uses: actions/checkout@v4
+       with:
+         fetch-depth: 0
+    
+     - name: Setup Ballerina
+       uses: ballerina-platform/setup-ballerina@v1.1.3
+       with:
+         version: latest
+    
+     - name: Install dependencies
+       run: |
+         bal pull
+    
+     - name: Configure Git
+       run: |
+         git config --global user.name "OpenAPI Dependabot"
+         git config --global user.email "dependabot@yourdomain.com"
+    
+     - name: Run OpenAPI monitor
+       env:
+         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       run: |
+         bal run main.bal
+    
+     - name: Check for updates
+       id: check_updates
+       run: |
+         if [ -f "UPDATE_SUMMARY.txt" ]; then
+           echo "updates_found=true" >> "$GITHUB_OUTPUT"
+           echo "summary<<EOF" >> "$GITHUB_OUTPUT"
+           cat UPDATE_SUMMARY.txt >> "$GITHUB_OUTPUT"
+           echo "EOF" >> "$GITHUB_OUTPUT"
+         else
+           echo "updates_found=false" >> "$GITHUB_OUTPUT"
+         fi
+    
+     - name: Create Pull Request
+       if: steps.check_updates.outputs.updates_found == 'true'
+       env:
+         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       run: |
+         BRANCH_NAME="openapi-update-$(date +%Y%m%d-%H%M%S)"
+        
+         # Create and switch to new branch
+         git checkout -b "$BRANCH_NAME"
+        
+         # Add changes
+         git add specs/ repos.json UPDATE_SUMMARY.txt
+        
+         # Commit
+         git commit -m "chore: Update OpenAPI specifications
 
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-  echo -e "${BLUE}Step 2: Creating Pull Request...${NC}"
-  ./scripts/create-pr.sh
-else
-  echo -e "${YELLOW}Skipping PR creation${NC}"
-  echo "You can manually create a PR later by running: ./scripts/create-pr.sh"
-fi
+
+         ${{ steps.check_updates.outputs.summary }}
+        
+         Automated update by OpenAPI Dependabot"
+        
+         # Push
+         git push origin "$BRANCH_NAME"
+        
+         # Create PR using gh CLI
+         gh pr create \
+           --title "Update OpenAPI Specifications - $(date +%Y-%m-%d)" \
+           --body "## OpenAPI Specification Updates
+        
+         This PR contains automated updates to OpenAPI specifications.
+        
+         ### Changes:
+         ${{ steps.check_updates.outputs.summary }}
+        
+         ### Checklist:
+         - [ ] Review specification changes
+         - [ ] Verify connector generation works
+         - [ ] Run tests
+         - [ ] Update documentation if needed
+        
+         ---
+         🤖 Automated by OpenAPI Dependabot" \
+           --label "openapi-update,automated,dependencies" \
+           --base main \
+           --head "$BRANCH_NAME"
+    
+     - name: Summary
+       if: steps.check_updates.outputs.updates_found == 'true'
+       run: |
+         echo "✅ Successfully created PR with OpenAPI updates"
+         echo "${{ steps.check_updates.outputs.summary }}"
+
