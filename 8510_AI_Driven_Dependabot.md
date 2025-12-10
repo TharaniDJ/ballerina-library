@@ -33,7 +33,7 @@ This project introduces an AI-driven Dependabot-like system that automatically i
 ## Motivation
 Maintaining an expanding set of OpenAPI-based connectors requires:
 
-- Continuous monitoring of API documentation changes.
+- Continuous monitoring of API spec changes.
 - Regeneration and validation of connectors.
 - Manual knowledge-intensive review.
 
@@ -73,6 +73,7 @@ It uses AI techniques to:
 
 ## Proposed Solution
 ### Components
+- **Registry:** Keeps metadata about OpenAPI specs.
 - **OpenAPI Fetcher:** Scheduled retrieval of provider specifications.
 - **Semantic Diff Engine:** Produces structural and semantic analysis.
 - **AI Reasoner:**
@@ -128,7 +129,6 @@ It uses AI techniques to:
 ---
 
 ## Security Considerations
-- Safe authentication for spec fetching.
 - Integrity validation for upstream sources.
 - No unrestricted merging—human review required.
 
