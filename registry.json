@@ -1,0 +1,487 @@
+{
+    "generated_connectors": [
+        {
+            "name": "module-ballerinax-asana",
+            "module_version": "3.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-candid",
+            "module_version": "0.2.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-dayforce",
+            "module_version": "0.1.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-discord",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-docusign.dsadmin",
+            "module_version": "3.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-docusign.dsclick",
+            "module_version": "2.0.1-SNAPSHOT\r",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-docusign.dsesign",
+            "module_version": "1.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-elastic.elasticcloud",
+            "module_version": "1.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-github",
+            "module_version": "5.1.1-SNAPSHOT",
+            "default_branch": "master",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-googleapis.calendar",
+            "module_version": "5.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-googleapis.gmail",
+            "module_version": "5.0.0-SNAPSHOT",
+            "default_branch": "master",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-guidewire.insnow",
+            "module_version": "0.2.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.automation.actions",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.associations",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.associations.schema",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.commerce.carts",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.commerce.discounts",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.commerce.orders",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.commerce.quotes",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.commerce.taxes",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.engagement.meeting",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.engagement.notes",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.engagements.calls",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.engagements.communications",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.engagements.email",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.engagements.tasks",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.extensions.timelines",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.extensions.videoconferencing",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.import",
+            "module_version": "4.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.lists",
+            "module_version": "1.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.object.companies",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.object.contacts",
+            "module_version": "1.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.object.deals",
+            "module_version": "1.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.object.feedback",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.object.leads",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.object.lineitems",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.object.products",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.object.schemas",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.object.tickets",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.owners",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.pipelines",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.crm.properties",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.marketing.campaigns",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.marketing.emails",
+            "module_version": "1.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.marketing.events",
+            "module_version": "1.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.marketing.forms",
+            "module_version": "1.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.marketing.subscriptions",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-hubspot.marketing.transactional",
+            "module_version": "1.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-jira",
+            "module_version": "2.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-mailchimp.marketing",
+            "module_version": "1.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-mailchimp.transactional",
+            "module_version": "1.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-microsoft.onedrive",
+            "module_version": "3.0.1-SNAPSHOT",
+            "default_branch": "master",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-openai",
+            "module_version": "1.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-paypal.invoices",
+            "module_version": "1.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-paypal.orders",
+            "module_version": "2.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-paypal.payments",
+            "module_version": "2.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-paypal.subscriptions",
+            "module_version": "1.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-salesforce.marketingcloud",
+            "module_version": "1.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-sap.s4hana.sales",
+            "module_version": "2.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-scim",
+            "module_version": "1.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-slack",
+            "module_version": "5.0.0-SNAPSHOT",
+            "default_branch": "master",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-smartsheet",
+            "module_version": "1.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-stripe",
+            "module_version": "2.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-trello",
+            "module_version": "2.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-twilio",
+            "module_version": "5.0.1-SNAPSHOT",
+            "default_branch": "master",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-twitter",
+            "module_version": "5.0.0-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-zendesk",
+            "module_version": "2.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-zoom.meetings",
+            "module_version": "1.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        },
+        {
+            "name": "module-ballerinax-zoom.scheduler",
+            "module_version": "1.0.1-SNAPSHOT",
+            "default_branch": "main",
+            "source": "",
+            "source_type": ""
+        }
+    ]
+}
