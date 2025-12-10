@@ -1,0 +1,1061 @@
+{
+  "connectors": [
+    {
+      "name": "module-ballerinax-asana",
+      "module_version": "3.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "Asana",
+          "repo": "openapi",
+          "spec_path": "defs/asana_oas.yaml"
+        },
+        "version_info": {
+          "last_known_version": "<latest-commit-or-tag>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-candid",
+      "module_version": "0.2.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developer.candid.org/reference/openapi",
+          "format": "swagger"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-dayforce",
+      "module_version": "0.1.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://www.dayforcehcm.com/api/{clientName}/swagger/docs/v1",
+          "format": "swagger"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-discord",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://discord.com/developers/docs/reference",
+          "format": "docs-only"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-docusign.dsadmin",
+      "module_version": "3.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_docs_download",
+        "location": {
+          "download_url": "https://developers.docusign.com/docs/admin-api/reference/"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-docusign.dsclick",
+      "module_version": "2.0.1-SNAPSHOT\r",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_docs_download",
+        "location": {
+          "download_url": "https://developers.docusign.com/docs/click-api/reference/"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-docusign.dsesign",
+      "module_version": "1.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_docs_download",
+        "location": {
+          "download_url": "https://developers.docusign.com/docs/esign-api/reference/"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-elastic.elasticcloud",
+      "module_version": "1.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://www.elastic.co/guide/en/cloud/current/ec-api-swagger.html",
+          "format": "swagger"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-github",
+      "module_version": "5.1.1-SNAPSHOT",
+      "default_branch": "master",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "github",
+          "repo": "rest-api-description",
+          "spec_path": "openapi.yaml"
+        },
+        "version_info": {
+          "last_known_version": "<latest-commit>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-googleapis.calendar",
+      "module_version": "5.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "googleapis",
+          "repo": "googleapis",
+          "spec_path": "google/calendar/v3/calendar-v3.openapi.json"
+        },
+        "version_info": {
+          "last_known_version": "<latest-commit>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-googleapis.gmail",
+      "module_version": "5.0.0-SNAPSHOT",
+      "default_branch": "master",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "googleapis",
+          "repo": "googleapis",
+          "spec_path": "google/gmail/v1/gmail-v1.openapi.json"
+        },
+        "version_info": {
+          "last_known_version": "<latest-commit>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-guidewire.insnow",
+      "module_version": "0.2.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "internal_repo",
+        "location": {
+          "owner": "ballerina-platform",
+          "repo": "module-ballerinax-guidewire.insnow",
+          "spec_path": "docs/spec/openapi.yml"
+        },
+        "version_info": {
+          "last_known_version": "<commit-hash-or-tag>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.automation.actions",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/automation/actions",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.associations",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/associations",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.associations.schema",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/associations-schema",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.commerce.carts",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/commerce/carts",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.commerce.discounts",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/commerce/discounts",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.commerce.orders",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/commerce/orders",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.commerce.quotes",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/commerce/quotes",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.commerce.taxes",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/commerce/taxes",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.engagement.meeting",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/engagements/meetings",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.engagement.notes",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/engagements/notes",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.engagements.calls",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/engagements/calls",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.engagements.communications",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/engagements/communications",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.engagements.email",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/engagements/emails",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.engagements.tasks",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/engagements/tasks",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.extensions.timelines",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/extensions/timelines",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.extensions.videoconferencing",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/extensions/videoconferencing",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.import",
+      "module_version": "4.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/imports",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.lists",
+      "module_version": "1.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/lists",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.object.companies",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/companies",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.object.contacts",
+      "module_version": "1.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/contacts",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.object.deals",
+      "module_version": "1.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/deals",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.object.feedback",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/feedback-submissions",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.object.leads",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/leads",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.object.lineitems",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/line-items",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.object.products",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/products",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.object.schemas",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/custom-objects/custom-objects-schemas",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.object.tickets",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/tickets",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.owners",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/owners",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.pipelines",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/pipelines",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.properties",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/properties",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.marketing.campaigns",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/marketing/campaigns",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.marketing.emails",
+      "module_version": "1.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/marketing/email",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.marketing.events",
+      "module_version": "1.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/marketing/events",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.marketing.forms",
+      "module_version": "1.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/marketing/forms",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.marketing.subscriptions",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/marketing/email/subscriptions",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.marketing.transactional",
+      "module_version": "1.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/marketing/transactional-email",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-jira",
+      "module_version": "2.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "internal_repo",
+        "location": {
+          "owner": "ballerina-platform",
+          "repo": "module-ballerinax-jira",
+          "spec_path": "docs/spec/openapi.yaml"
+        },
+        "version_info": {
+          "last_known_version": "<commit-hash-or-tag>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-mailchimp.marketing",
+      "module_version": "1.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "mailchimp",
+          "repo": "marketing-api-openapi",
+          "spec_path": "spec.yaml"
+        },
+        "version_info": {
+          "last_known_version": "<latest-commit>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-mailchimp.transactional",
+      "module_version": "1.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "mailchimp",
+          "repo": "transactional-api-openapi",
+          "spec_path": "spec.yaml"
+        },
+        "version_info": {
+          "last_known_version": "<latest-commit>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-microsoft.onedrive",
+      "module_version": "3.0.1-SNAPSHOT",
+      "default_branch": "master",
+      "openapi": {
+        "source_type": "vendor_docs_download",
+        "location": {
+          "download_url": "https://learn.microsoft.com/en-us/graph/api/resources/onedrive-api-reference"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-openai",
+      "module_version": "1.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "openai",
+          "repo": "openai-openapi",
+          "spec_path": "openapi.yaml"
+        },
+        "version_info": {
+          "last_known_version": "<latest-commit>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-paypal.invoices",
+      "module_version": "1.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "paypal",
+          "repo": "api-specifications",
+          "spec_path": "invoice-spec/v2/invoice_v2.json"
+        },
+        "version_info": {
+          "last_known_version": "<latest-commit>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-paypal.orders",
+      "module_version": "2.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "paypal",
+          "repo": "api-specifications",
+          "spec_path": "orders-spec/v2/orders_v2.json"
+        },
+        "version_info": {
+          "last_known_version": "<latest-commit>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-paypal.payments",
+      "module_version": "2.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "paypal",
+          "repo": "api-specifications",
+          "spec_path": "payments-spec/v2/payments_v2.json"
+        },
+        "version_info": {
+          "last_known_version": "<latest-commit>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-paypal.subscriptions",
+      "module_version": "1.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "paypal",
+          "repo": "api-specifications",
+          "spec_path": "subscription-spec/v1/subscription_v1.json"
+        },
+        "version_info": {
+          "last_known_version": "<latest-commit>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-salesforce.marketingcloud",
+      "module_version": "1.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_docs_download",
+        "location": {
+          "download_url": "https://developer.salesforce.com/docs/marketing/mc/guide/rest-api-reference.html"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-sap.s4hana.sales",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_docs_download",
+        "location": {
+          "download_url": "https://api.sap.com/api/OP_API_SALES_ORDER_SRV/overview"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-scim",
+      "module_version": "1.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "standard_spec",
+        "location": {
+          "reference": "SCIM Core Schema",
+          "url": "https://www.iana.org/assignments/scim/scim.xml"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-slack",
+      "module_version": "5.0.0-SNAPSHOT",
+      "default_branch": "master",
+      "openapi": {
+        "source_type": "vendor_docs_download",
+        "location": {
+          "download_url": "https://api.slack.com/methods"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-smartsheet",
+      "module_version": "1.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.smartsheet.com/api/",
+          "format": "redocly"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-stripe",
+      "module_version": "2.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "stripe",
+          "repo": "openapi",
+          "spec_path": "openapi/spec3.yaml"
+        },
+        "version_info": {
+          "last_known_version": "<latest-release-tag-or-commit>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-trello",
+      "module_version": "2.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developer.atlassian.com/cloud/trello/",
+          "format": "docs-only"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-twilio",
+      "module_version": "5.0.1-SNAPSHOT",
+      "default_branch": "master",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "twilio",
+          "repo": "twilio-oai",
+          "spec_path": "spec/json/twilio_api_v2010.json"
+        },
+        "version_info": {
+          "last_known_version": "<latest-commit-or-tag>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-twitter",
+      "module_version": "5.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_docs_download",
+        "location": {
+          "download_url": "https://developer.twitter.com/en/docs/api-reference"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-zendesk",
+      "module_version": "2.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developer.zendesk.com/api-reference/ticketing/introduction/",
+          "format": "docs-only"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-zoom.meetings",
+      "module_version": "1.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.zoom.us/docs/api/rest/reference/meetings/",
+          "format": "docs-only"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-zoom.scheduler",
+      "module_version": "1.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://developers.zoom.us/docs/api/rest/reference/scheduler/",
+          "format": "docs-only"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    }
+  ]
+}
