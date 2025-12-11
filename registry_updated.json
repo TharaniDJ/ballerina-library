@@ -12,7 +12,7 @@
           "spec_path": "defs/asana_oas.yaml"
         },
         "version_info": {
-          "last_known_version": "<latest-commit-or-tag>",
+          "last_known_version": "3bd1db7",
           "last_checked": "2025-12-10T00:00:00Z"
         }
       }
