@@ -38,20 +38,21 @@
   }
 },
     {
-      "name": "module-ballerinax-dayforce",
-      "module_version": "0.1.1-SNAPSHOT",
-      "default_branch": "main",
-      "openapi": {
-        "source_type": "vendor_public_url",
-        "location": {
-          "primary_url": "https://www.dayforcehcm.com/api/{clientName}/swagger/docs/v1",
-          "format": "swagger"
-        },
-        "version_info": {
-          "last_checked": "2025-12-10T00:00:00Z"
-        }
-      }
+  "name": "module-ballerinax-dayforce",
+  "module_version": "0.1.1-SNAPSHOT",
+  "default_branch": "main",
+  "openapi": {
+    "source_type": "vendor_public_url",
+    "location": {
+      "primary_url": "https://www.dayforcehcm.com/api/{clientName}/swagger/docs/v1",
+      "format": "swagger",
+      "is_templated": true 
     },
+    "version_info": {
+      "last_checked": "2025-12-11T00:00:00Z" 
+    }
+  }
+},
     {
       "name": "module-ballerinax-discord",
       "module_version": "2.0.0-SNAPSHOT",
