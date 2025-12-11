@@ -54,62 +54,75 @@
   }
 },
     {
-      "name": "module-ballerinax-discord",
-      "module_version": "2.0.0-SNAPSHOT",
-      "default_branch": "main",
-      "openapi": {
-        "source_type": "vendor_public_url",
-        "location": {
-          "primary_url": "https://discord.com/developers/docs/reference",
-          "format": "docs-only"
-        },
-        "version_info": {
-          "last_checked": "2025-12-10T00:00:00Z"
-        }
-      }
+  "name": "module-ballerinax-discord",
+  "module_version": "2.0.0-SNAPSHOT",
+  "default_branch": "main",
+  "openapi": {
+    "source_type": "github",
+    "location": {
+      "owner": "discord",
+      "repo": "discord-api-spec",
+      "spec_path": "specs/openapi.json"
     },
+    "version_info": {
+      "last_known_version": "e9b0a37", 
+      "last_checked": "2025-12-11T00:00:00Z"
+    }
+  }
+},
     {
-      "name": "module-ballerinax-docusign.dsadmin",
-      "module_version": "3.0.0-SNAPSHOT",
-      "default_branch": "main",
-      "openapi": {
-        "source_type": "vendor_docs_download",
-        "location": {
-          "download_url": "https://developers.docusign.com/docs/admin-api/reference/"
-        },
-        "version_info": {
-          "last_checked": "2025-12-10T00:00:00Z"
-        }
+    "name": "module-ballerinax-docusign.dsadmin",
+    "module_version": "3.0.0-SNAPSHOT",
+    "default_branch": "main",
+    "openapi": {
+      "source_type": "github",
+      "location": {
+        "owner": "docusign",
+        "repo": "OpenAPI-Specifications",
+        "spec_path": "Admin.rest.swagger-v2.json"
+      },
+      "version_info": {
+        "last_known_version": "<Latest-Commit-Hash>",
+        "last_checked": "2025-12-11T00:00:00Z"
       }
-    },
-    {
-      "name": "module-ballerinax-docusign.dsclick",
-      "module_version": "2.0.1-SNAPSHOT\r",
-      "default_branch": "main",
-      "openapi": {
-        "source_type": "vendor_docs_download",
-        "location": {
-          "download_url": "https://developers.docusign.com/docs/click-api/reference/"
-        },
-        "version_info": {
-          "last_checked": "2025-12-10T00:00:00Z"
-        }
+    }
+  },
+  {
+    "name": "module-ballerinax-docusign.dsclick",
+    "module_version": "2.0.1-SNAPSHOT\r",
+    "default_branch": "main",
+    "openapi": {
+      "source_type": "github",
+      "location": {
+        "owner": "docusign",
+        "repo": "OpenAPI-Specifications",
+        "spec_path": "click.rest.swagger-v2.json"
+      },
+      "version_info": {
+        
+        "last_known_version": "<Latest-Commit-Hash>",
+        "last_checked": "2025-12-11T00:00:00Z"
       }
-    },
-    {
-      "name": "module-ballerinax-docusign.dsesign",
-      "module_version": "1.0.1-SNAPSHOT",
-      "default_branch": "main",
-      "openapi": {
-        "source_type": "vendor_docs_download",
-        "location": {
-          "download_url": "https://developers.docusign.com/docs/esign-api/reference/"
-        },
-        "version_info": {
-          "last_checked": "2025-12-10T00:00:00Z"
-        }
+    }
+  },
+  {
+    "name": "module-ballerinax-docusign.dsesign",
+    "module_version": "1.0.1-SNAPSHOT",
+    "default_branch": "main",
+    "openapi": {
+      "source_type": "github",
+      "location": {
+        "owner": "docusign",
+        "repo": "OpenAPI-Specifications",
+        "spec_path": "eSignature.rest.swagger-v2.json"
+      },
+      "version_info": {
+        
+        "last_known_version": "<Latest-Commit-Hash>",
+        "last_checked": "2025-12-11T00:00:00Z"
       }
-    },
+    }
+  },
     {
       "name": "module-ballerinax-elastic.elasticcloud",
       "module_version": "1.0.1-SNAPSHOT",
