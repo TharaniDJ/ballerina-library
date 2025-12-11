@@ -18,20 +18,25 @@
       }
     },
     {
-      "name": "module-ballerinax-candid",
-      "module_version": "0.2.0-SNAPSHOT",
-      "default_branch": "main",
-      "openapi": {
-        "source_type": "vendor_public_url",
-        "location": {
-          "primary_url": "https://developer.candid.org/reference/openapi",
-          "format": "swagger"
-        },
-        "version_info": {
-          "last_checked": "2025-12-10T00:00:00Z"
-        }
-      }
+  "name": "module-ballerinax-candid",
+  "module_version": "0.2.0-SNAPSHOT",
+  "default_branch": "main",
+  "openapi": {
+    "source_type": "vendor_docs_collection",
+    "location": {
+      "primary_url": "https://developer.candid.org/reference/openapi",
+      "format": "multiple_specs_in_docs",
+      "spec_components": [ 
+        {"ballerina_submodule": "charitycheckpdf", "api_name": "Charity Check PDF API"},
+        {"ballerina_submodule": "essentials", "api_name": "Essentials API"},
+        {"ballerina_submodule": "premier", "api_name": "Premier API"}
+      ]
     },
+    "version_info": {
+      "last_checked": "2025-12-10T00:00:00Z"
+    }
+  }
+},
     {
       "name": "module-ballerinax-dayforce",
       "module_version": "0.1.1-SNAPSHOT",
