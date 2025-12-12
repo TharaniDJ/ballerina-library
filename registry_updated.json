@@ -798,19 +798,23 @@
       }
     },
     {
-      "name": "module-ballerinax-microsoft.onedrive",
-      "module_version": "3.0.1-SNAPSHOT",
-      "default_branch": "master",
-      "openapi": {
-        "source_type": "vendor_docs_download",
-        "location": {
-          "download_url": "https://learn.microsoft.com/en-us/graph/api/resources/onedrive-api-reference"
-        },
-        "version_info": {
-          "last_checked": "2025-12-10T00:00:00Z"
-        }
-      }
+  "name": "module-ballerinax-microsoft.onedrive",
+  "module_version": "3.0.1-SNAPSHOT",
+  "default_branch": "master",
+  "openapi": {
+   
+    "source_type": "vendor_docs_download", 
+    "location": {
+      "download_url": "https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml",
+      "reference_url": "https://learn.microsoft.com/en-us/graph/overview" 
     },
+    "version_info": {
+      
+      "last_known_version": "<Latest-Commit-Hash-for-msgraph-metadata>",
+      "last_checked": "2025-12-12T00:00:00Z"
+    }
+  }
+},
     {
       "name": "module-ballerinax-openai",
       "module_version": "1.0.1-SNAPSHOT",
@@ -940,19 +944,33 @@
       }
     },
     {
-      "name": "module-ballerinax-slack",
-      "module_version": "5.0.0-SNAPSHOT",
-      "default_branch": "master",
-      "openapi": {
-        "source_type": "vendor_docs_download",
-        "location": {
-          "download_url": "https://api.slack.com/methods"
+  "name": "module-ballerinax-slack",
+  "module_version": "5.0.0-SNAPSHOT",
+  "default_branch": "master",
+  "openapi": {
+    "source_type": "github_collection", 
+    "location": {
+      "owner": "slackapi",
+      "repo": "slack-api-specs",
+      "format": "multiple_specs_in_repo",
+      "spec_components": [
+        {
+          "type": "OpenAPI (Web API Client)",
+          "spec_path": "web-api/slack_web_openapi_v2.json" 
         },
-        "version_info": {
-          "last_checked": "2025-12-10T00:00:00Z"
+        {
+          "type": "AsyncAPI (Events Listener)",
+          "spec_path": "events-api/slack_events_api_async_v1.json"
         }
-      }
+      ]
     },
+    "version_info": {
+      
+      "last_known_version": "<Latest-Commit-Hash>", 
+      "last_checked": "2025-12-12T00:00:00Z"
+    }
+  }
+},
     {
       "name": "module-ballerinax-smartsheet",
       "module_version": "1.0.1-SNAPSHOT",
