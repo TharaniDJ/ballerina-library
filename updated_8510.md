@@ -125,7 +125,7 @@ These source types will be defined as an enum:
 |-------------|---------|----------------------|
 | `github` | OpenAPI spec lives in a GitHub repo | Compare latest commit SHA of spec file |
 | `vendor_public_url` | Vendor provides a direct, public OpenAPI JSON/YAML URL | Download & hash compare |
-| `vendor_docs_collection` | Specification is embedded across multiple vendor documentation pages | Scrape page → extract spec → hash compare |
+| `vendor_docs_collection` | One page contains multiple OpenAPI specs | Scrape page → extract spec → hash compare |
 | `third_party_hub` | Specs stored on sites like SwaggerHub, Postman Public Workspace | Use official APIs to fetch latest version |
 | `internal_repo` | OpenAPI lives in a private WSO2/Ballerina repo | Fetch file from GitHub API using token |
 
