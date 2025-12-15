@@ -56,6 +56,7 @@ function getLatestReleaseTag(github:Client githubClient, string owner, string re
 }
 
 // Download OpenAPI spec from GitHub release or repository
+// Download OpenAPI spec from GitHub release or repository
 function downloadSpec(github:Client githubClient, string owner, string repo, 
                      string assetName, string tagName, string specPath, 
                      string localPath) returns error? {
@@ -79,7 +80,7 @@ function downloadSpec(github:Client githubClient, string owner, string repo,
     }
     
     // If not found in assets, get from repository content
-    if downloadUrl == "" {
+    if downloadUrl is () || downloadUrl == "" {
         io:println(string `  ℹ️  Not in release assets, fetching from repository...`);
         
         // Get file content using GitHub API
@@ -87,38 +88,24 @@ function downloadSpec(github:Client githubClient, string owner, string repo,
         
         if contentArrayResult is github:ContentTree[] && contentArrayResult.length() > 0 && contentArrayResult[0] is github:ContentFile {
             github:ContentFile content = <github:ContentFile>contentArrayResult[0];
-            // Decode base64 content
-            string? encodedContent = content.content;
-            if encodedContent is string {
-                // Use download_url instead of decoding base64
-                downloadUrl = content.download_url;
-            }
+            downloadUrl = content.download_url;
         }
     }
     
-    if downloadUrl is () {
+    if downloadUrl is () || downloadUrl == "" {
         return error(string `Could not find ${assetName} in release or repository`);
     }
     
-    // Download using GitHub client
-    github:Client httpClient = check new ({
+    // Download using HTTP client with GitHub authentication
+    string token = <string>os:getEnv("GH_TOKEN");
+    
+    http:Client downloadClient = check new (downloadUrl, {
         auth: {
-            token: <string>os:getEnv("GH_TOKEN")
+            token: token
         }
     });
     
-    // Note: For actual file download, we need to use http:Client
-    // But we'll construct the raw URL and download it
-    string rawUrl = string `https://raw.githubusercontent.com/${owner}/${repo}/${tagName}/${specPath}`;
-    
-    // Download the content directly using HTTP
-    if downloadUrl == "" {
-        return error("No download URL available");
-    }
-    
-    string url = downloadUrl;
-    http:Client downloadClient = check new ("");
-    http:Response response = check downloadClient->get(url);
+    http:Response response = check downloadClient->get("");
     
     if response.statusCode != 200 {
         return error(string `HTTP ${response.statusCode}: Failed to download file`);
