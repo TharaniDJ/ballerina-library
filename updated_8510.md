@@ -61,7 +61,7 @@ A central registry will be created to store metadata for every generated connect
 
 #### 2. Periodic Discovery and Version Checking
 
-A scheduled workflow will iterate through all registry entries daily at a specified time and check whether the corresponding OpenAPI specifications have changed. Since OpenAPI sources vary (GitHub repos, vendor URLs, public JSON files, etc.), the system will support multiple detection strategies such as commit hashes, content hashing, header-based caching, or vendor-specific version indicators.
+A scheduled workflow will iterate through all registry entries daily at a specified time and check whether the corresponding OpenAPI specifications have changed. Since OpenAPI sources vary (GitHub repos, vendor URLs, public JSON files, etc.), the system will support multiple detection strategies such as **GitHub release tags**, **version indicators within the OpenAPI spec** or vendor-specific version indicators.
 
 #### 3. Automated Update Workflow When Changes Are Detected
 
@@ -149,7 +149,7 @@ Every connector entry follows the same high-level layout:
     "source_type": "<enum>",
     "location": { },
     "version_info": {
-      "last_known_version": "<hash-or-tag>",
+      "last_known_version": "<openapi-version-or-tag>",
       "last_checked": "ISO_TIMESTAMP"
     }
   }
@@ -172,8 +172,8 @@ Used when the vendor publishes OpenAPI specs in a public repository (e.g., Asana
 }
 ```
 
-- The system fetches the latest commit SHA for `spec_path`
-- SHA is compared with `version_info.last_known_version`
+- The system fetches the latest release tag or version associated with `spec_path`
+- The tag/version is compared with `version_info.last_known_version`
 
 **Example:**
 ```json
@@ -233,7 +233,7 @@ Used for APIs like Candid and HubSpot, where one page contains multiple OpenAPI 
 - This connector has submodules
 - Each submodule gets its own:
   - Temporary extracted spec
-  - Hash comparison
+  - OpenAPI version comparison
   - Regeneration pipeline
 - Backward compatibility preserved for older multi-module connectors
 
@@ -270,15 +270,15 @@ These URLs require authentication and cannot be polled automatically.
 
 ```json
 "version_info": {
-  "last_known_version": "<commit-hash-or-hash-of-downloaded-spec>",
+  "last_known_version": "<release-tag-or-openapi-version>",
   "last_checked": "2025-12-10T00:00:00Z"
 }
 ```
 
 **How versioning works:**
-- GitHub repos: commit SHA
-- URL-based: hash of downloaded OpenAPI file
-- Multi-doc pages: hash per submodule
+- GitHub repos: release tag
+- URL-based: version field in the downloaded OpenAPI file (info.version)
+- Multi-doc pages: version field in the extracted spec per submodule
 - Restricted access: `last_known_version` stays empty; only notifications sent
 
 #### 5. Submodule Handling
