@@ -61,7 +61,7 @@ A central registry will be created to store metadata for every generated connect
 
 #### 2. Periodic Discovery and Version Checking
 
-A scheduled workflow will iterate through all registry entries daily at a specified time and check whether the corresponding OpenAPI specifications have changed. Since OpenAPI sources vary (GitHub repos, vendor URLs, public JSON files, etc.), the system will support multiple detection strategies such as **GitHub release tags**, **version indicators within the OpenAPI spec** or vendor-specific version indicators.
+A scheduled workflow will iterate through all registry entries daily/weekly/monthly/quarterly and check whether the corresponding OpenAPI specifications have changed. Since OpenAPI sources vary (GitHub repos, vendor URLs, public JSON files, etc.), the system will support multiple detection strategies such as **GitHub release tags**, **version indicators within the OpenAPI spec** or vendor-specific version indicators.
 
 #### 3. Automated Update Workflow When Changes Are Detected
 
@@ -84,7 +84,7 @@ Although Ballerina's semver tool may serve as a fallback, the LLM-based approach
 Based on the diff analysis (e.g., patch, minor, or major change), the connector's version will be automatically updated following semantic versioning, and release artifacts will be prepared.
 
 ##### (v) Automated Pull Request to Connector Repository
-Finally, the updated connector will be submitted as a pull request to the connector's repository, completing the automated update cycle.
+Finally, the updated connector will be submitted as a pull request to the connector's repository, completing the automated update cycle. Simultaneously, the system will send an automated email notification to the integration team detailing the update and providing a link to the generated pull request.
 
 This solution reduces human intervention, ensures connectors remain up-to-date with the rapidly evolving ecosystem of third-party APIs, and establishes a scalable long-term process for maintaining Ballerina's large connector library.
 
@@ -123,9 +123,9 @@ These source types will be defined as an enum:
 
 | Source Type | Meaning | How We Detect Updates |
 |-------------|---------|----------------------|
-| `github` | OpenAPI spec lives in a GitHub repo | Compare latest commit SHA of spec file |
-| `vendor_public_url` | Vendor provides a direct, public OpenAPI JSON/YAML URL | Download & hash compare |
-| `vendor_docs_collection` | One page contains multiple OpenAPI specs | Scrape page → extract spec → hash compare |
+| `github` | OpenAPI spec lives in a GitHub repo | Compare latest GitHub release tag |
+| `vendor_public_url` | Vendor provides a direct, public OpenAPI JSON/YAML URL | version indicators within the OpenAPI spec |
+| `vendor_docs_collection` | One page contains multiple OpenAPI specs | version indicators within each OpenAPI spec |
 | `third_party_hub` | Specs stored on sites like SwaggerHub, Postman Public Workspace | Use official APIs to fetch latest version |
 | `internal_repo` | OpenAPI lives in a private WSO2/Ballerina repo | Fetch file from GitHub API using token |
 
@@ -145,6 +145,7 @@ Every connector entry follows the same high-level layout:
   "name": "module-ballerinax-<vendor>.<service>",
   "module_version": "X.Y.Z-SNAPSHOT",
   "default_branch": "main",
+  "frequency": "<daily|weekly|monthly|quarterly>",
   "openapi": {
     "source_type": "<enum>",
     "location": { },
@@ -281,20 +282,7 @@ These URLs require authentication and cannot be polled automatically.
 - Multi-doc pages: version field in the extracted spec per submodule
 - Restricted access: `last_known_version` stays empty; only notifications sent
 
-#### 5. Submodule Handling
 
-Some connectors consist of multiple APIs under one vendor (e.g., HubSpot, Candid).
-
-Each submodule:
-- Gets its own extracted spec
-- Is tracked individually
-- Generates its own Ballerina connector module
-- Still belongs to one registry entry because source location is shared
-
-**Why?**
-- Backward compatibility with old style multi-connector repos
-- Simple source definition
-- Clean regeneration flows
 
 ---
 
