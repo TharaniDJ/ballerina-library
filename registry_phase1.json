@@ -1,0 +1,104 @@
+[
+  {
+    "name": "module-ballerinax-stripe",
+    "display_name": "Stripe",
+    "module_version": "2.0.1-SNAPSHOT",
+    "frequency": "weekly",
+    "github": {
+      "owner": "stripe",
+      "repo": "openapi",
+      "spec_path": "openapi/spec3.yaml",
+      "branch": "master",
+      "release_asset_name": "spec3.yaml"
+    },
+    "version_info": {
+      "last_known_version": "",
+      "last_checked": ""
+    }
+  },
+  {
+    "name": "module-ballerinax-openai",
+    "display_name": "OpenAI",
+    "module_version": "1.0.1-SNAPSHOT",
+    "frequency": "weekly",
+    "github": {
+      "owner": "openai",
+      "repo": "openai-openapi",
+      "spec_path": "openapi.yaml",
+      "branch": "master",
+      "release_asset_name": "openapi.yaml"
+    },
+    "version_info": {
+      "last_known_version": "",
+      "last_checked": ""
+    }
+  },
+  {
+    "name": "module-ballerinax-twilio",
+    "display_name": "Twilio",
+    "module_version": "5.0.1-SNAPSHOT",
+    "frequency": "weekly",
+    "github": {
+      "owner": "twilio",
+      "repo": "twilio-oai",
+      "spec_path": "spec/json/twilio_api_v2010.json",
+      "branch": "main",
+      "release_asset_name": "twilio_api_v2010.json"
+    },
+    "version_info": {
+      "last_known_version": "",
+      "last_checked": ""
+    }
+  },
+  {
+    "name": "module-ballerinax-github",
+    "display_name": "GitHub REST API",
+    "module_version": "5.1.1-SNAPSHOT",
+    "frequency": "weekly",
+    "github": {
+      "owner": "github",
+      "repo": "rest-api-description",
+      "spec_path": "descriptions/api.github.com/api.github.com.json",
+      "branch": "main",
+      "release_asset_name": "api.github.com.json"
+    },
+    "version_info": {
+      "last_known_version": "",
+      "last_checked": ""
+    }
+  },
+  {
+    "name": "module-ballerinax-asana",
+    "display_name": "Asana",
+    "module_version": "3.0.0-SNAPSHOT",
+    "frequency": "weekly",
+    "github": {
+      "owner": "Asana",
+      "repo": "openapi",
+      "spec_path": "defs/asana_oas.yaml",
+      "branch": "master",
+      "release_asset_name": "asana_oas.yaml"
+    },
+    "version_info": {
+      "last_known_version": "",
+      "last_checked": ""
+    }
+  },
+  {
+    "name": "module-ballerinax-discord",
+    "display_name": "Discord",
+    "module_version": "2.0.0-SNAPSHOT",
+    "frequency": "weekly",
+    "github": {
+      "owner": "discord",
+      "repo": "discord-api-spec",
+      "spec_path": "specs/openapi.json",
+      "branch": "main",
+      "release_asset_name": "openapi.json"
+    },
+    "version_info": {
+      "last_known_version": "",
+      "last_checked": ""
+    }
+  }
+]

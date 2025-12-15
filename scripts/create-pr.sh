@@ -1,190 +1,111 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
 
-# Configuration
-BRANCH_PREFIX="openapi-update"
-BASE_BRANCH="main"
-TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-BRANCH_NAME="${BRANCH_PREFIX}-${TIMESTAMP}"
+# Script to create PR in api-specs repo after detecting updates
+# Works with Documents/GitHub/ structure
 
-# PR Target Configuration
-# Set to "fork" to create PR within your fork (safe for testing)
-# Set to "upstream" to create PR to the main WSO2 repository
-PR_TARGET="${PR_TARGET:-fork}"  # Default to fork for safety
+set -e
 
-# Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
-
-echo -e "${BLUE}=== OpenAPI Spec Update & PR Creation ===${NC}\n"
-
-# Determine repository information
-CURRENT_REPO=$(git remote get-url origin | sed 's/.*github.com[:/]\(.*\)\.git/\1/')
-echo -e "${BLUE}Current repository: ${CURRENT_REPO}${NC}"
-
-# Check if this is a fork
-UPSTREAM_URL=$(git remote get-url upstream 2>/dev/null || echo "")
-if [ -n "$UPSTREAM_URL" ]; then
-  UPSTREAM_REPO=$(echo "$UPSTREAM_URL" | sed 's/.*github.com[:/]\(.*\)\.git/\1/')
-  echo -e "${BLUE}Upstream repository: ${UPSTREAM_REPO}${NC}"
-  IS_FORK=true
-else
-  echo -e "${YELLOW}No upstream remote found (not a fork)${NC}"
-  IS_FORK=false
-fi
-
-# Set target repository based on PR_TARGET
-if [ "$PR_TARGET" = "upstream" ] && [ "$IS_FORK" = true ]; then
-  TARGET_REPO="$UPSTREAM_REPO"
-  echo -e "${YELLOW}⚠️  PR will be created to UPSTREAM: ${TARGET_REPO}${NC}"
-  echo -e "${YELLOW}This will propose changes to the main WSO2 repository!${NC}"
-else
-  TARGET_REPO="$CURRENT_REPO"
-  echo -e "${GREEN}✅ PR will be created within YOUR FORK: ${TARGET_REPO}${NC}"
-  echo -e "${GREEN}Safe for testing - won't affect main repository${NC}"
-fi
+echo "════════════════════════════════════════════════════════"
+echo "  Creating PR for OpenAPI Spec Updates"
+echo "════════════════════════════════════════════════════════"
 echo ""
 
-# Check if GH_TOKEN is set
-if [ -z "${GH_TOKEN:-}" ]; then
-  echo -e "${RED}❌ Error: GH_TOKEN environment variable not set${NC}"
-  echo "Please set your GitHub token: export GH_TOKEN=your_token_here"
-  exit 1
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+BALLERINA_DIR="$( cd "$SCRIPT_DIR/.." && pwd )"
+
+# Check if UPDATE_SUMMARY.md exists
+if [ ! -f "$BALLERINA_DIR/UPDATE_SUMMARY.md" ]; then
+    echo "❌ Error: UPDATE_SUMMARY.md not found"
+    echo "Run the Ballerina version checker first:"
+    echo "  cd $BALLERINA_DIR"
+    echo "  bal run src/repo_fetcher"
+    exit 1
 fi
 
-# Check if there's an update summary
-if [ ! -f "UPDATE_SUMMARY.txt" ]; then
-  echo -e "${YELLOW}⚠️  No UPDATE_SUMMARY.txt found${NC}"
-  echo "Run the Ballerina monitor first to detect updates"
-  exit 2
+# Determine api-specs location
+# Try relative path first (side by side repos)
+API_SPECS_DIR="$BALLERINA_DIR/../api-specs"
+
+if [ ! -d "$API_SPECS_DIR" ]; then
+    echo "❌ Error: api-specs directory not found at $API_SPECS_DIR"
+    echo ""
+    echo "Expected structure:"
+    echo "  Documents/GitHub/"
+    echo "    ├── ballerina-library/"
+    echo "    └── api-specs/"
+    exit 1
 fi
 
-UPDATE_SUMMARY=$(cat UPDATE_SUMMARY.txt)
-echo -e "${GREEN}Updates detected:${NC}"
-echo "$UPDATE_SUMMARY"
+echo "✓ Found api-specs at: $API_SPECS_DIR"
 echo ""
 
-# Check for uncommitted changes
+cd "$API_SPECS_DIR"
+
+# Check for changes
 if [ -z "$(git status --porcelain)" ]; then
-  echo -e "${YELLOW}⚠️  No changes to commit${NC}"
-  echo "The working directory is clean"
-  exit 2
+    echo "ℹ️  No changes detected in api-specs"
+    exit 0
 fi
 
-echo -e "${BLUE}📋 Changes detected:${NC}"
-git status --short
+echo "📋 Changes detected:"
+git status --short openapi/
 echo ""
 
-# Get current branch to return to later
-CURRENT_BRANCH=$(git branch --show-current)
-echo -e "${BLUE}Current branch: ${CURRENT_BRANCH}${NC}"
+# Create a new branch
+BRANCH_NAME="openapi-update-$(date +%Y%m%d-%H%M%S)"
+echo "🌿 Creating branch: $BRANCH_NAME"
+git checkout -b "$BRANCH_NAME"
 
-# Stash any uncommitted changes temporarily
-echo -e "${BLUE}💾 Stashing current changes...${NC}"
-git stash push -m "Temporary stash for OpenAPI update"
+# Stage all changes in openapi/ directory
+echo "📦 Staging changes..."
+git add openapi/
 
-# Fetch latest changes
-echo -e "${BLUE}🔄 Fetching latest changes...${NC}"
-git fetch origin
+# Commit with the summary
+echo "💾 Creating commit..."
+git commit -F "$BALLERINA_DIR/UPDATE_SUMMARY.md"
 
-# Checkout base branch and pull latest
-echo -e "${BLUE}🔀 Updating ${BASE_BRANCH}...${NC}"
-git checkout "${BASE_BRANCH}"
-git pull origin "${BASE_BRANCH}"
-
-# Pop the stashed changes
-echo -e "${BLUE}📤 Applying changes...${NC}"
-git stash pop
-
-# Create new branch
-echo -e "${BLUE}🌿 Creating new branch: ${BRANCH_NAME}${NC}"
-git checkout -b "${BRANCH_NAME}"
-
-# Add changed files
-echo -e "${BLUE}➕ Adding changed files...${NC}"
-git add specs/ repos.json UPDATE_SUMMARY.txt
-
-# Create commit message
-COMMIT_MSG="chore: Update OpenAPI specifications
-
-${UPDATE_SUMMARY}
-
-Automated update by OpenAPI Dependabot"
-
-echo -e "${BLUE}💬 Commit message:${NC}"
-echo "$COMMIT_MSG"
-echo ""
-
-# Commit changes
-echo -e "${BLUE}✅ Committing changes...${NC}"
-git commit -m "$COMMIT_MSG"
-
-# Push to remote
-echo -e "${BLUE}⬆️  Pushing to remote...${NC}"
-git push -u origin "${BRANCH_NAME}"
+# Push to origin
+echo "⬆️  Pushing to origin..."
+git push origin "$BRANCH_NAME"
 
 # Create PR using GitHub CLI
-echo -e "${BLUE}🔗 Creating Pull Request...${NC}"
-
-PR_TITLE="Update OpenAPI Specifications - $(date +%Y-%m-%d)"
-PR_BODY="## OpenAPI Specification Updates
-
-This PR contains automated updates to OpenAPI specifications detected by the Dependabot monitor.
-
-### Changes:
-${UPDATE_SUMMARY}
-
-### Checklist:
-- [ ] Review specification changes
-- [ ] Verify connector generation works
-- [ ] Run tests
-- [ ] Update documentation if needed
-
----
-🤖 This PR was automatically generated by the OpenAPI Dependabot"
-
-# Create PR using GitHub API
-PR_RESPONSE=$(curl -s -X POST \
-  -H "Authorization: token ${GH_TOKEN}" \
-  -H "Accept: application/vnd.github.v3+json" \
-  https://api.github.com/repos/${TARGET_REPO}/pulls \
-  -d "{
-    \"title\": \"${PR_TITLE}\",
-    \"body\": $(echo "$PR_BODY" | jq -Rs .),
-    \"head\": \"${BRANCH_NAME}\",
-    \"base\": \"${BASE_BRANCH}\"
-  }")
-
-PR_URL=$(echo "$PR_RESPONSE" | jq -r '.html_url')
-
-if [ "$PR_URL" != "null" ] && [ -n "$PR_URL" ]; then
-  echo -e "${GREEN}✅ Pull Request created successfully!${NC}"
-  echo -e "${GREEN}🔗 PR URL: ${PR_URL}${NC}"
-  
-  # Add labels (optional)
-  PR_NUMBER=$(echo "$PR_RESPONSE" | jq -r '.number')
-  if [ "$PR_NUMBER" != "null" ]; then
-    curl -s -X POST \
-      -H "Authorization: token ${GH_TOKEN}" \
-      -H "Accept: application/vnd.github.v3+json" \
-      https://api.github.com/repos/${TARGET_REPO}/issues/${PR_NUMBER}/labels \
-      -d '{"labels":["openapi-update","automated","dependencies"]}' > /dev/null
-    echo -e "${BLUE}🏷️  Added labels to PR${NC}"
-  fi
+if command -v gh &> /dev/null; then
+    echo "📬 Creating Pull Request..."
+    
+    # Extract title from first line
+    TITLE=$(head -n 1 "$BALLERINA_DIR/UPDATE_SUMMARY.md" | sed 's/^# //')
+    
+    gh pr create \
+        --title "$TITLE" \
+        --body-file "$BALLERINA_DIR/UPDATE_SUMMARY.md" \
+        --base main \
+        --head "$BRANCH_NAME"
+    
+    echo ""
+    echo "✅ Pull request created successfully!"
+    echo ""
+    echo "View PR at: https://github.com/TharaniDJ/api-specs/pulls"
 else
-  echo -e "${RED}❌ Failed to create Pull Request${NC}"
-  echo "Response: $PR_RESPONSE"
-  exit 1
+    echo ""
+    echo "⚠️  GitHub CLI (gh) not found"
+    echo ""
+    echo "📝 Manual steps to create PR:"
+    echo "   1. Go to: https://github.com/TharaniDJ/api-specs/pulls"
+    echo "   2. Click 'New Pull Request'"
+    echo "   3. Click 'compare: main' and select: $BRANCH_NAME"
+    echo "   4. Copy the content from UPDATE_SUMMARY.md as the description"
+    echo ""
+    echo "Or install GitHub CLI:"
+    echo "   macOS:   brew install gh"
+    echo "   Ubuntu:  sudo apt install gh"
+    echo "   Windows: winget install GitHub.cli"
 fi
 
-# Return to original branch
-echo -e "${BLUE}🔙 Returning to ${CURRENT_BRANCH}...${NC}"
-git checkout "${CURRENT_BRANCH}"
+# Return to original directory
+cd "$BALLERINA_DIR"
 
-# Cleanup
-rm -f UPDATE_SUMMARY.txt
-
-echo -e "\n${GREEN}✨ Done! Review the PR at: ${PR_URL}${NC}"
+echo ""
+echo "════════════════════════════════════════════════════════"
+echo "  ✨ Done!"
+echo "════════════════════════════════════════════════════════"

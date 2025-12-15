@@ -1,306 +1,130 @@
-// import ballerina/io;
-// import ballerina/os;
-// import ballerina/http;
-// import ballerina/file;
-// import ballerinax/github;
-
-// // Repository record type
-// type Repository record {|
-//     string owner;
-//     string repo;
-//     string name;
-//     string lastVersion;
-//     string lastChecked;
-//     string specPath;
-//     string releaseAssetName;
-// |};
-
-// // Update result record
-// type UpdateResult record {|
-//     Repository repo;
-//     string oldVersion;
-//     string newVersion;
-//     string downloadUrl;
-//     string localPath;
-// |};
-
-// // Check for version updates
-// function hasVersionChanged(string oldVersion, string newVersion) returns boolean {
-//     return oldVersion != newVersion;
-// }
-
-// // Download OpenAPI spec from release asset or repo
-// function downloadSpec(github:Client githubClient, string owner, string repo, 
-//                      string assetName, string tagName, string localPath, string specPath) returns error? {
-    
-//     io:println(string `  📥 Downloading ${assetName}...`);
-    
-//     string? downloadUrl = ();
-    
-//     // Try to get from release assets first
-//     github:Release|error release = githubClient->/repos/[owner]/[repo]/releases/tags/[tagName]();
-    
-//     if release is github:Release {
-//         github:ReleaseAsset[]? assets = release.assets;
-//         if assets is github:ReleaseAsset[] {
-//             foreach github:ReleaseAsset asset in assets {
-//                 if asset.name == assetName {
-//                     downloadUrl = asset.browser_download_url;
-//                     io:println(string `  ✅ Found in release assets`);
-//                     break;
-//                 }
-//             }
-//         }
-//     }
-    
-//     // If not found in assets, try direct download from repo
-//     if downloadUrl is () {
-//         io:println(string `  ℹ️  Not in release assets, downloading from repository...`);
-//         // Use the specPath from repos.json
-//         downloadUrl = string `https://raw.githubusercontent.com/${owner}/${repo}/${tagName}/${specPath}`;
-//     }
-    
-//     // Download the file
-//     http:Client httpClient = check new (<string>downloadUrl);
-//     http:Response response = check httpClient->get("");
-    
-//     if response.statusCode != 200 {
-//         return error(string `Failed to download: HTTP ${response.statusCode} from ${<string>downloadUrl}`);
-//     }
-    
-//     // Get content
-//     string|byte[]|error content = response.getTextPayload();
-    
-//     // Create directory if it doesn't exist
-//     string dirPath = check file:parentPath(localPath);
-//     if !check file:test(dirPath, file:EXISTS) {
-//         check file:createDir(dirPath, file:RECURSIVE);
-//     }
-    
-//     // Write to file
-//     if content is string {
-//         check io:fileWriteString(localPath, content);
-//     } else if content is byte[] {
-//         check io:fileWriteBytes(localPath, content);
-//     } else {
-//         return error("Failed to get content from response");
-//     }
-    
-//     io:println(string `  ✅ Downloaded to ${localPath}`);
-//     return;
-// }
-
-// // Main monitoring function
-// public function main() returns error? {
-//     io:println("=== Dependabot OpenAPI Monitor ===");
-//     io:println("Starting OpenAPI specification monitoring...\n");
-    
-//     // Get GitHub token
-//     string? token = os:getEnv("GH_TOKEN");
-//     if token is () {
-//         io:println("❌ Error: GH_TOKEN environment variable not set");
-//         io:println("Please set the GH_TOKEN environment variable before running this program.");
-//         return;
-//     }
-    
-//     string tokenValue = <string>token;
-    
-//     // Validate token
-//     if tokenValue.length() == 0 {
-//         io:println("❌ Error: GH_TOKEN is empty!");
-//         return;
-//     }
-    
-//     io:println(string `🔍 Token loaded (length: ${tokenValue.length()})`);
-    
-//     // Initialize GitHub client
-//     github:Client githubClient = check new ({
-//         auth: {
-//             token: tokenValue
-//         }
-//     });
-    
-//     // Load repositories from repos.json
-//     json reposJson = check io:fileReadJson("repos.json");
-//     Repository[] repos = check reposJson.cloneWithType();
-    
-//     io:println(string `Found ${repos.length()} repositories to monitor.\n`);
-    
-//     // Track updates
-//     UpdateResult[] updates = [];
-    
-//     // Check each repository
-//     foreach Repository repo in repos {
-//         io:println(string `Checking: ${repo.name} (${repo.owner}/${repo.repo})`);
-        
-//         // Get latest release
-//         github:Release|error latestRelease = githubClient->/repos/[repo.owner]/[repo.repo]/releases/latest();
-        
-//         if latestRelease is github:Release {
-//             string tagName = latestRelease.tag_name;
-//             string? publishedAt = latestRelease.published_at;
-//             boolean isDraft = latestRelease.draft;
-//             boolean isPrerelease = latestRelease.prerelease;
-            
-//             if isPrerelease || isDraft {
-//                 io:println(string `  ⏭️  Skipping pre-release: ${tagName}`);
-//             } else {
-//                 io:println(string `  Latest version: ${tagName}`);
-//                 if publishedAt is string {
-//                     io:println(string `  Published: ${publishedAt}`);
-//                 }
-                
-//                 if hasVersionChanged(repo.lastVersion, tagName) {
-//                     io:println(string `  ✅ UPDATE AVAILABLE!`);
-                    
-//                     // Define local path for the spec
-//                     string localPath = string `specs/${repo.owner}/${repo.repo}/${repo.releaseAssetName}`;
-                    
-//                     // Download the spec
-//                     error? downloadResult = downloadSpec(
-//                         githubClient, 
-//                         repo.owner, 
-//                         repo.repo, 
-//                         repo.releaseAssetName, 
-//                         tagName, 
-//                         localPath,
-//                         repo.specPath
-//                     );
-                    
-//                     if downloadResult is error {
-//                         io:println(string `  ❌ Download failed: ${downloadResult.message()}`);
-//                     } else {
-//                         // Track the update
-//                         updates.push({
-//                             repo: repo,
-//                             oldVersion: repo.lastVersion,
-//                             newVersion: tagName,
-//                             downloadUrl: string `https://github.com/${repo.owner}/${repo.repo}/releases/tag/${tagName}`,
-//                             localPath: localPath
-//                         });
-                        
-//                         // Update the repo record
-//                         repo.lastVersion = tagName;
-//                     }
-//                 } else {
-//                     io:println(string `  ℹ️  No updates`);
-//                 }
-//             }
-//         } else {
-//             string errorMsg = latestRelease.message();
-//             if errorMsg.includes("404") {
-//                 io:println(string `  ❌ Error: No releases found for ${repo.owner}/${repo.repo}`);
-//             } else if errorMsg.includes("401") || errorMsg.includes("403") {
-//                 io:println(string `  ❌ Error: Authentication failed`);
-//             } else {
-//                 io:println(string `  ❌ Error: ${errorMsg}`);
-//             }
-//         }
-        
-//         io:println("");
-//     }
-    
-//     // Report updates
-//     if updates.length() > 0 {
-//         io:println(string `\n🎉 Found ${updates.length()} updates:\n`);
-        
-//         // Create update summary
-//         string[] updateSummary = [];
-//         foreach UpdateResult update in updates {
-//             string summary = string `- ${update.repo.name}: ${update.oldVersion} → ${update.newVersion}`;
-//             io:println(summary);
-//             updateSummary.push(summary);
-//         }
-        
-//         // Update repos.json
-//         check io:fileWriteJson("repos.json", repos.toJson());
-//         io:println("\n✅ Updated repos.json with new versions");
-        
-//         // Write update summary for shell script to use
-//         string summaryContent = string:'join("\n", ...updateSummary);
-//         check io:fileWriteString("UPDATE_SUMMARY.txt", summaryContent);
-        
-//         io:println("\n📌 Next steps:");
-//         io:println("1. Run the shell script to create a PR");
-//         io:println("2. ./scripts/create-pr.sh");
-        
-//     } else {
-//         io:println("✨ All specifications are up-to-date!");
-//     }
-// }
-
 import ballerina/io;
 import ballerina/os;
-import ballerina/http;
 import ballerina/file;
+import ballerina/time;
+import ballerina/http;
 import ballerinax/github;
 
-// Repository record type
-type Repository record {|
+// Simplified registry entry for Phase 1 (GitHub sources only)
+type ConnectorRegistry record {|
+    string name;
+    string display_name;
+    string module_version;
+    GithubSource github;
+    VersionInfo version_info;
+    string frequency;
+|};
+
+type GithubSource record {|
     string owner;
     string repo;
-    string name;
-    string lastVersion;
-    string lastChecked;
-    string specPath;
-    string releaseAssetName;
+    string spec_path;
+    string release_asset_name;
 |};
 
-// Update result record
+type VersionInfo record {|
+    string last_known_version;  // Release tag like "v2134"
+    string last_checked;
+|};
+
+// Result of update check
 type UpdateResult record {|
-    Repository repo;
-    string oldVersion;
-    string newVersion;
-    string downloadUrl;
-    string localPath;
+    ConnectorRegistry connector;
+    string old_version;
+    string new_version;
+    string release_url;
+    string local_path;
 |};
 
-// Check for version updates
-function hasVersionChanged(string oldVersion, string newVersion) returns boolean {
-    return oldVersion != newVersion;
+// Get the latest release tag from GitHub
+function getLatestReleaseTag(github:Client githubClient, string owner, string repo) 
+    returns string|error {
+    
+    io:println(string `  🔍 Fetching latest release from ${owner}/${repo}...`);
+    
+    // Get latest release
+    github:Release release = check githubClient->/repos/[owner]/[repo]/releases/latest();
+    
+    // Skip pre-releases and drafts
+    if release.draft || release.prerelease {
+        return error(string `Latest release is ${release.draft ? "draft" : "pre-release"}`);
+    }
+    
+    string tagName = release.tag_name;
+    io:println(string `  ✓ Latest release: ${tagName}`);
+    return tagName;
 }
 
-// Download OpenAPI spec from release asset or repo
+// Download OpenAPI spec from GitHub release or repository
 function downloadSpec(github:Client githubClient, string owner, string repo, 
-                     string assetName, string tagName, string localPath, string specPath) returns error? {
+                     string assetName, string tagName, string specPath, 
+                     string localPath) returns error? {
     
-    io:println(string `  📥 Downloading ${assetName}...`);
+    io:println(string `  📥 Downloading ${assetName} from release ${tagName}...`);
     
     string? downloadUrl = ();
     
     // Try to get from release assets first
-    github:Release|error release = githubClient->/repos/[owner]/[repo]/releases/tags/[tagName]();
+    github:Release release = check githubClient->/repos/[owner]/[repo]/releases/tags/[tagName]();
     
-    if release is github:Release {
-        github:ReleaseAsset[]? assets = release.assets;
-        if assets is github:ReleaseAsset[] {
-            foreach github:ReleaseAsset asset in assets {
-                if asset.name == assetName {
-                    downloadUrl = asset.browser_download_url;
-                    io:println(string `  ✅ Found in release assets`);
-                    break;
-                }
+    github:ReleaseAsset[]? assets = release.assets;
+    if assets is github:ReleaseAsset[] {
+        foreach github:ReleaseAsset asset in assets {
+            if asset.name == assetName {
+                downloadUrl = asset.browser_download_url;
+                io:println(string `  ✓ Found in release assets`);
+                break;
             }
         }
     }
     
-    // If not found in assets, try direct download from repo
-    if downloadUrl is () {
-        io:println(string `  ℹ️  Not in release assets, downloading from repository...`);
-        // Use the specPath from repos.json
-        downloadUrl = string `https://raw.githubusercontent.com/${owner}/${repo}/${tagName}/${specPath}`;
+    // If not found in assets, get from repository content
+    if downloadUrl == "" {
+        io:println(string `  ℹ️  Not in release assets, fetching from repository...`);
+        
+        // Get file content using GitHub API
+        github:ContentTree[]? contentArrayResult = check githubClient->/repos/[owner]/[repo]/contents/[specPath]('ref = tagName);
+        
+        if contentArrayResult is github:ContentTree[] && contentArrayResult.length() > 0 && contentArrayResult[0] is github:ContentFile {
+            github:ContentFile content = <github:ContentFile>contentArrayResult[0];
+            // Decode base64 content
+            string? encodedContent = content.content;
+            if encodedContent is string {
+                // Use download_url instead of decoding base64
+                downloadUrl = content.download_url;
+            }
+        }
     }
     
-    // Download the file
-    http:Client httpClient = check new (<string>downloadUrl);
-    http:Response response = check httpClient->get("");
+    if downloadUrl is () {
+        return error(string `Could not find ${assetName} in release or repository`);
+    }
+    
+    // Download using GitHub client
+    github:Client httpClient = check new ({
+        auth: {
+            token: <string>os:getEnv("GH_TOKEN")
+        }
+    });
+    
+    // Note: For actual file download, we need to use http:Client
+    // But we'll construct the raw URL and download it
+    string rawUrl = string `https://raw.githubusercontent.com/${owner}/${repo}/${tagName}/${specPath}`;
+    
+    // Download the content directly using HTTP
+    if downloadUrl == "" {
+        return error("No download URL available");
+    }
+    
+    string url = downloadUrl;
+    http:Client downloadClient = check new ("");
+    http:Response response = check downloadClient->get(url);
     
     if response.statusCode != 200 {
-        return error(string `Failed to download: HTTP ${response.statusCode} from ${<string>downloadUrl}`);
+        return error(string `HTTP ${response.statusCode}: Failed to download file`);
     }
     
-    // Get content
-    string|byte[]|error content = response.getTextPayload();
+    byte[] content = check response.getBinaryPayload();
     
     // Create directory if it doesn't exist
     string dirPath = check file:parentPath(localPath);
@@ -309,153 +133,189 @@ function downloadSpec(github:Client githubClient, string owner, string repo,
     }
     
     // Write to file
-    if content is string {
-        check io:fileWriteString(localPath, content);
-    } else if content is byte[] {
-        check io:fileWriteBytes(localPath, content);
-    } else {
-        return error("Failed to get content from response");
-    }
-    
+    check io:fileWriteBytes(localPath, content);
     io:println(string `  ✅ Downloaded to ${localPath}`);
     return;
 }
 
+// Map connector name to api-specs directory structure
+function getApiSpecsPath(string connectorName, string specPath) returns string {
+    // Extract vendor and API name from connector name
+    // e.g., "module-ballerinax-stripe" -> "stripe/stripe"
+    // e.g., "module-ballerinax-docusign.dsadmin" -> "docusign/admin"
+    
+    string cleanName = connectorName.substring(18); // Remove "module-ballerinax-"
+    
+    string[] parts = re `\.`.split(cleanName);
+    string vendor = parts[0];
+    string apiName = parts.length() > 1 ? parts[1] : parts[0];
+    
+    // Determine file name from spec_path
+    string fileName = "openapi.yaml";
+    if specPath.endsWith(".json") {
+        fileName = "openapi.json";
+    }
+    
+    return string `openapi/${vendor}/${apiName}/latest/${fileName}`;
+}
+
+// Get current timestamp in ISO format
+function getCurrentTimestamp() returns string {
+    time:Utc currentTime = time:utcNow();
+    return time:utcToString(currentTime);
+}
+
 // Main monitoring function
 public function main() returns error? {
-    io:println("=== Dependabot OpenAPI Monitor ===");
-    io:println("Starting OpenAPI specification monitoring...\n");
+    io:println("╔═══════════════════════════════════════════════════════════╗");
+    io:println("║   Ballerina OpenAPI Dependabot - Version Checker         ║");
+    io:println("║   Phase 1: GitHub Release Tags                            ║");
+    io:println("╚═══════════════════════════════════════════════════════════╝\n");
     
     // Get GitHub token
     string? token = os:getEnv("GH_TOKEN");
     if token is () {
         io:println("❌ Error: GH_TOKEN environment variable not set");
-        io:println("Please set the GH_TOKEN environment variable before running this program.");
-        return;
+        io:println("Please set: export GH_TOKEN=\"your_token_here\"");
+        return error("Missing GitHub token");
     }
     
-    string tokenValue = <string>token;
-    
-    // Validate token
-    if tokenValue.length() == 0 {
-        io:println("❌ Error: GH_TOKEN is empty!");
-        return;
-    }
-    
-    io:println(string `🔍 Token loaded (length: ${tokenValue.length()})`);
+    io:println("🔑 GitHub token loaded\n");
     
     // Initialize GitHub client
     github:Client githubClient = check new ({
         auth: {
-            token: tokenValue
+            token: <string>token
         }
     });
     
-    // Load repositories from repos.json
-    json reposJson = check io:fileReadJson("repos.json");
-    Repository[] repos = check reposJson.cloneWithType();
+    // Load registry
+    json registryJson = check io:fileReadJson("registry_phase1.json");
+    ConnectorRegistry[] connectors = check registryJson.cloneWithType();
     
-    io:println(string `Found ${repos.length()} repositories to monitor.\n`);
+    io:println(string `📋 Loaded ${connectors.length()} connectors to monitor\n`);
     
     // Track updates
     UpdateResult[] updates = [];
+    int checkedCount = 0;
+    int errorCount = 0;
     
-    // Check each repository
-    foreach Repository repo in repos {
-        io:println(string `Checking: ${repo.name} (${repo.owner}/${repo.repo})`);
+    // Check each connector
+    foreach ConnectorRegistry connector in connectors {
+        io:println(string `━━━ ${connector.display_name} ━━━`);
+        io:println(string `    Repository: ${connector.github.owner}/${connector.github.repo}`);
         
-        // Get latest release
-        github:Release|error latestRelease = githubClient->/repos/[repo.owner]/[repo.repo]/releases/latest();
+        checkedCount += 1;
         
-        if latestRelease is github:Release {
-            string tagName = latestRelease.tag_name;
-            string? publishedAt = latestRelease.published_at;
-            boolean isDraft = latestRelease.draft;
-            boolean isPrerelease = latestRelease.prerelease;
-            
-            if isPrerelease || isDraft {
-                io:println(string `  ⏭️  Skipping pre-release: ${tagName}`);
+        // Get latest release tag
+        string|error latestTag = getLatestReleaseTag(
+            githubClient,
+            connector.github.owner,
+            connector.github.repo
+        );
+        
+        if latestTag is error {
+            io:println(string `  ❌ Error: ${latestTag.message()}`);
+            errorCount += 1;
+            io:println("");
+            continue;
+        }
+        
+        string currentVersion = connector.version_info.last_known_version;
+        
+        // Check if version changed
+        if currentVersion == "" || currentVersion != latestTag {
+            if currentVersion == "" {
+                io:println("  🆕 New connector (no previous version tracked)");
             } else {
-                io:println(string `  Latest version: ${tagName}`);
-                if publishedAt is string {
-                    io:println(string `  Published: ${publishedAt}`);
-                }
+                io:println("  ✅ UPDATE DETECTED!");
+                io:println(string `     Old: ${currentVersion}`);
+                io:println(string `     New: ${latestTag}`);
+            }
+            
+            // Determine local path in api-specs repo
+            string localPath = getApiSpecsPath(connector.name, connector.github.spec_path);
+            string fullPath = string `../api-specs/${localPath}`;
+            
+            // Download the spec
+            error? downloadResult = downloadSpec(
+                githubClient,
+                connector.github.owner,
+                connector.github.repo,
+                connector.github.release_asset_name,
+                latestTag,
+                connector.github.spec_path,
+                fullPath
+            );
+            
+            if downloadResult is error {
+                io:println(string `  ❌ Download failed: ${downloadResult.message()}`);
+                errorCount += 1;
+            } else {
+                // Track successful update
+                updates.push({
+                    connector: connector,
+                    old_version: currentVersion,
+                    new_version: latestTag,
+                    release_url: string `https://github.com/${connector.github.owner}/${connector.github.repo}/releases/tag/${latestTag}`,
+                    local_path: localPath
+                });
                 
-                if hasVersionChanged(repo.lastVersion, tagName) {
-                    io:println(string `  ✅ UPDATE AVAILABLE!`);
-                    
-                    // Define local path for the spec
-                    string localPath = string `specs/${repo.owner}/${repo.repo}/${repo.releaseAssetName}`;
-                    
-                    // Download the spec
-                    error? downloadResult = downloadSpec(
-                        githubClient, 
-                        repo.owner, 
-                        repo.repo, 
-                        repo.releaseAssetName, 
-                        tagName, 
-                        localPath,
-                        repo.specPath
-                    );
-                    
-                    if downloadResult is error {
-                        io:println(string `  ❌ Download failed: ${downloadResult.message()}`);
-                    } else {
-                        // Track the update
-                        updates.push({
-                            repo: repo,
-                            oldVersion: repo.lastVersion,
-                            newVersion: tagName,
-                            downloadUrl: string `https://github.com/${repo.owner}/${repo.repo}/releases/tag/${tagName}`,
-                            localPath: localPath
-                        });
-                        
-                        // Update the repo record
-                        repo.lastVersion = tagName;
-                    }
-                } else {
-                    io:println(string `  ℹ️  No updates`);
-                }
+                // Update the connector record
+                connector.version_info.last_known_version = latestTag;
+                connector.version_info.last_checked = getCurrentTimestamp();
             }
         } else {
-            string errorMsg = latestRelease.message();
-            if errorMsg.includes("404") {
-                io:println(string `  ❌ Error: No releases found for ${repo.owner}/${repo.repo}`);
-            } else if errorMsg.includes("401") || errorMsg.includes("403") {
-                io:println(string `  ❌ Error: Authentication failed`);
-            } else {
-                io:println(string `  ❌ Error: ${errorMsg}`);
-            }
+            io:println(string `  ℹ️  Up to date (${currentVersion})`);
         }
         
         io:println("");
     }
     
-    // Report updates
+    // Summary
+    io:println("╔═══════════════════════════════════════════════════════════╗");
+    io:println("║                         SUMMARY                           ║");
+    io:println("╚═══════════════════════════════════════════════════════════╝");
+    io:println(string `Checked:  ${checkedCount} connectors`);
+    io:println(string `Updates:  ${updates.length()} found`);
+    io:println(string `Errors:   ${errorCount}`);
+    io:println("");
+    
     if updates.length() > 0 {
-        io:println(string `\n🎉 Found ${updates.length()} updates:\n`);
-        
-        // Create update summary
-        string[] updateSummary = [];
+        io:println("📋 Updated Connectors:");
         foreach UpdateResult update in updates {
-            string summary = string `- ${update.repo.name}: ${update.oldVersion} → ${update.newVersion}`;
-            io:println(summary);
-            updateSummary.push(summary);
+            string oldDisplay = update.old_version == "" ? "NEW" : update.old_version;
+            io:println(string `  • ${update.connector.display_name}: ${oldDisplay} → ${update.new_version}`);
         }
         
-        // Update repos.json
-        check io:fileWriteJson("repos.json", repos.toJson());
-        io:println("\n✅ Updated repos.json with new versions");
+        // Save updated registry
+        check io:fileWriteJson("registry_phase1.json", connectors.toJson());
+        io:println("\n✅ Updated registry_phase1.json with new release tags");
         
-        // Write update summary for shell script to use
-        string summaryContent = string:'join("\n", ...updateSummary);
-        check io:fileWriteString("UPDATE_SUMMARY.txt", summaryContent);
+        // Create update summary for PR
+        string[] updateLines = [];
+        updateLines.push("# OpenAPI Specification Updates\n");
+        updateLines.push(string `Updated ${updates.length()} specification(s) based on latest GitHub releases:\n`);
         
-        io:println("\n📌 Next steps:");
-        io:println("1. Run the shell script to create a PR");
-        io:println("2. ./scripts/create-pr.sh");
+        foreach UpdateResult update in updates {
+            string oldDisplay = update.old_version == "" ? "NEW" : update.old_version;
+            updateLines.push("\n## " + update.connector.display_name);
+            updateLines.push("- **Location**: `" + update.local_path + "`");
+            updateLines.push("- **Previous Version**: " + oldDisplay);
+            updateLines.push("- **Current Version**: " + update.new_version);
+            updateLines.push("- **Release**: " + update.release_url);
+        }
         
+        string summary = string:'join("\n", ...updateLines);
+        check io:fileWriteString("UPDATE_SUMMARY.md", summary);
+        
+        io:println("\n📝 Created UPDATE_SUMMARY.md");
+        io:println("\n📌 Next Steps:");
+        io:println("   1. Review changes in ../api-specs/");
+        io:println("   2. Create PR using: ./scripts/create-pr.sh");
     } else {
         io:println("✨ All specifications are up-to-date!");
     }
+    
+    return;
 }
