@@ -124,8 +124,8 @@ These source types will be defined as an enum:
 | Source Type | Meaning | How We Detect Updates |
 |-------------|---------|----------------------|
 | `github` | OpenAPI spec lives in a GitHub repo | Compare latest GitHub release tag |
-| `vendor_public_url` | Vendor provides a direct, public OpenAPI JSON/YAML URL | version indicators within the OpenAPI spec |
-| `vendor_docs_collection` | One page contains multiple OpenAPI specs | version indicators within each OpenAPI spec |
+| `vendor_public_url` | Vendor provides a direct, public OpenAPI JSON/YAML URL | Version indicators within the OpenAPI spec |
+| `vendor_docs_collection` | One page contains multiple OpenAPI specs | Version indicators within each OpenAPI spec |
 | `third_party_hub` | Specs stored on sites like SwaggerHub, Postman Public Workspace | Use official APIs to fetch latest version |
 | `internal_repo` | OpenAPI lives in a private WSO2/Ballerina repo | Fetch file from GitHub API using token |
 
