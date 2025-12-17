@@ -1,0 +1,244 @@
+{
+  "connectors": [
+    {
+      "name": "module-ballerinax-asana",
+      "module_version": "3.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "frequency": "weekly",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "Asana",
+          "repo": "openapi",
+          "spec_path": "defs/asana_oas.yaml"
+        },
+        "version_info": {
+          "last_known_version": "3bd1db7",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-candid",
+      "module_version": "0.2.0-SNAPSHOT",
+      "default_branch": "main",
+      "frequency": "monthly",
+      "openapi": {
+        "source_type": "vendor_docs_collection",
+        "location": {
+          "primary_url": "https://developer.candid.org/reference/openapi",
+          "format": "multiple_specs_in_docs",
+          "spec_components": [
+            { "ballerina_submodule": "charitycheckpdf", "api_name": "Charity Check PDF API" },
+            { "ballerina_submodule": "essentials", "api_name": "Essentials API" },
+            { "ballerina_submodule": "premier", "api_name": "Premier API" }
+          ]
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-dayforce",
+      "module_version": "0.1.1-SNAPSHOT",
+      "default_branch": "main",
+      "frequency": "monthly",
+      "openapi": {
+        "source_type": "restricted_access",
+        "location": {
+          "primary_url": "https://www.dayforcehcm.com/api/{clientName}/swagger/docs/v1",
+          "format": "swagger",
+          "is_templated": true,
+          "requires_auth": true
+        },
+        "version_info": {
+          "last_checked": "2025-12-11T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-discord",
+      "module_version": "2.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "frequency": "weekly",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "discord",
+          "repo": "discord-api-spec",
+          "spec_path": "specs/openapi.json"
+        },
+        "version_info": {
+          "last_known_version": "e9b0a37",
+          "last_checked": "2025-12-11T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-docusign.dsadmin",
+      "module_version": "3.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "frequency": "monthly",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "docusign",
+          "repo": "OpenAPI-Specifications",
+          "spec_path": "Admin.rest.swagger-v2.json"
+        },
+        "version_info": {
+          "last_known_version": "<Latest-Commit-Hash>",
+          "last_checked": "2025-12-11T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-elastic.elasticcloud",
+      "module_version": "1.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "frequency": "monthly",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://www.elastic.co/guide/en/cloud/current/ec-api-swagger.html",
+          "format": "swagger"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-github",
+      "module_version": "5.1.1-SNAPSHOT",
+      "default_branch": "master",
+      "frequency": "daily",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "github",
+          "repo": "rest-api-description",
+          "spec_path": "openapi.yaml"
+        },
+        "version_info": {
+          "last_known_version": "<latest-commit>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-guidewire.insnow",
+      "module_version": "0.2.0-SNAPSHOT",
+      "default_branch": "main",
+      "frequency": "quarterly",
+      "openapi": {
+        "source_type": "internal_repo",
+        "location": {
+          "owner": "ballerina-platform",
+          "repo": "module-ballerinax-guidewire.insnow",
+          "spec_path": "docs/spec/openapi.yml"
+        },
+        "version_info": {
+          "last_known_version": "<commit-hash-or-tag>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-hubspot.crm.object.contacts",
+      "module_version": "1.0.0-SNAPSHOT",
+      "default_branch": "main",
+      "frequency": "weekly",
+      "openapi": {
+        "source_type": "vendor_docs_collection",
+        "location": {
+          "primary_url": "https://developers.hubspot.com/docs/api-reference/crm/contacts",
+          "format": "multiple-specs-in-docs"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-microsoft.onedrive",
+      "module_version": "3.0.1-SNAPSHOT",
+      "default_branch": "master",
+      "frequency": "monthly",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml",
+          "format": "yaml"
+        },
+        "version_info": {
+          "last_known_version": "<Latest-Commit-Hash-for-msgraph-metadata>",
+          "last_checked": "2025-12-12T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-scim",
+      "module_version": "1.0.1-SNAPSHOT",
+      "default_branch": "main",
+      "frequency": "quarterly",
+      "openapi": {
+        "source_type": "vendor_public_url",
+        "location": {
+          "primary_url": "https://www.iana.org/assignments/scim/scim.xml",
+          "format": "xml"
+        },
+        "version_info": {
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-slack",
+      "module_version": "5.0.0-SNAPSHOT",
+      "default_branch": "master",
+      "frequency": "weekly",
+      "openapi": {
+        "source_type": "github_collection",
+        "location": {
+          "owner": "slackapi",
+          "repo": "slack-api-specs",
+          "format": "multiple_specs_in_repo",
+          "spec_components": [
+            {
+              "type": "OpenAPI (Web API Client)",
+              "spec_path": "web-api/slack_web_openapi_v2.json"
+            },
+            {
+              "type": "AsyncAPI (Events Listener)",
+              "spec_path": "events-api/slack_events_api_async_v1.json"
+            }
+          ]
+        },
+        "version_info": {
+          "last_known_version": "<Latest-Commit-Hash>",
+          "last_checked": "2025-12-12T00:00:00Z"
+        }
+      }
+    },
+    {
+      "name": "module-ballerinax-twilio",
+      "module_version": "5.0.1-SNAPSHOT",
+      "default_branch": "master",
+      "frequency": "monthly",
+      "openapi": {
+        "source_type": "github",
+        "location": {
+          "owner": "twilio",
+          "repo": "twilio-oai",
+          "spec_path": "spec/json/twilio_api_v2010.json"
+        },
+        "version_info": {
+          "last_known_version": "<latest-commit-or-tag>",
+          "last_checked": "2025-12-10T00:00:00Z"
+        }
+      }
+    }
+  ]
+}
