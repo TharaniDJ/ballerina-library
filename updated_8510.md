@@ -170,7 +170,8 @@ Used when the vendor publishes OpenAPI specs in a public repository (e.g., Asana
 "location": {
   "owner": "OWNER",
   "repo": "REPO_NAME",
-  "spec_path": "path/to/openapi.yaml"
+  "spec_path": "path/to/openapi.yaml",
+  "release_asset_name": "<optional>"
 }
 ```
 
@@ -179,12 +180,9 @@ Used when the vendor publishes OpenAPI specs in a public repository (e.g., Asana
 
 **Example:**
 ```json
-{
+"location": {
   "owner": "stripe",
   "repo": "openapi",
-  "name": "Stripe OpenAPI",
-  "lastVersion": "v2134",
-  "lastChecked": "2025-01-01T00:00:00Z",
   "specPath": "openapi/spec3.yaml",
   "releaseAssetName": "spec3.yaml"
 }
