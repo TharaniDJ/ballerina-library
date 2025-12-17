@@ -54,7 +54,7 @@ An AI-driven solution enables:
 ## Description
 ### Proposed Solution
 
-The proposed solution introduces an automated, AI-assisted workflow that continuously monitors, analyzes, and updates Ballerina connectors based on changes in external OpenAPI specifications. This approach is inspired by Dependabot, but adapted to the unique challenges of OpenAPI-driven connector maintenance.
+The proposed solution introduces an automated, AI-assisted workflow that continuously monitors, analyzes, and updates Ballerina connectors based on changes in external OpenAPI specifications. This approach is inspired by Dependabot, but adapted to the unique challenges of OpenAPI-driven connector maintenance. Following are the main tasks which will be implemented. 
 
 #### 1. Registry Definition and Initialization
 
