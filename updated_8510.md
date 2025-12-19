@@ -123,7 +123,7 @@ These source types will be defined as an enum:
 
 ```json
 {
-  "source_type": "<one-of: github | vendor_public_url | vendor_docs_collection | third_party_hub | internal_repo | restricted_access | unavailable>"
+  "source_type": "<one-of: github | vendor_public_url | vendor_docs_collection | third_party_hub | restricted_access | unavailable>"
 }
 ```
 
@@ -135,7 +135,7 @@ These source types will be defined as an enum:
 | `vendor_public_url` | Vendor provides a direct, public OpenAPI JSON/YAML URL | Version indicators within the OpenAPI spec |
 | `vendor_docs_collection` | One page contains multiple OpenAPI specs | Version indicators within each OpenAPI spec |
 | `third_party_hub` | Specs stored on sites like SwaggerHub, Postman Public Workspace | Use official APIs to fetch latest version |
-| `internal_repo` | OpenAPI lives in a private WSO2/Ballerina repo | Fetch file from GitHub API using token |
+
 
 ##### 1.2 Edge Source Types (Special Handling Required)
 
@@ -196,9 +196,9 @@ Used when the vendor publishes OpenAPI specs in a public repository (e.g., Asana
 }
 ```
 
-##### 3.2 Vendor Public URL
+##### 3.2 Vendor Public URL & Third Party Hub
 
-Used when the vendor gives a direct URL to JSON/YAML (e.g., Elastic Cloud, Candid alternative format).
+Used when a direct URL to JSON/YAML (e.g., Elastic Cloud, Candid alternative format) is available.
 
 ```json
 "location": {
