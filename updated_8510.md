@@ -32,8 +32,8 @@ This project introduces an AI-driven Dependabot-like system that automatically i
 ---
 
 ## Non Goals
-- Additinal authorization required and client wise openapi specs providing Dayforce like websites will be ignored.
-- S for Hana like highly differntiated connector structures will be excluded from the automation.
+- S/4HANA like highly differentiated connector structures will be excluded from the automation.
+- Platforms like Dayforce that provide client-wise or gated OpenAPI specs will not be handled by the automated system.
 
 
 ---
@@ -80,8 +80,7 @@ If a change is detected in an OpenAPI specification, the bot will perform a seri
 The updated OpenAPI file will be added to the centralized API specification repository, and the system will create a pull request containing the new spec version.
 
 ##### (ii) Regenerate the Corresponding Connector
-The system will then regenerate the connector in its dedicated repository using the existing AI-driven connector generation pipeline supported by Ballerina.
-
+The system will then regenerate the connector in its dedicated repository using the existing AI-driven connector generation pipeline (developed by another internship project) supported by Ballerina. 
 ##### (iii) Intelligent Change Detection via AI
 Instead of comparing raw OpenAPI specifications—which can be noisy and difficult to diff—the system compares the generated connector source code, which has a well-defined structure fully controlled by Ballerina.
 
@@ -269,14 +268,7 @@ These URLs require authentication and cannot be polled automatically.
 
 ---
 
-## Implementation Artifacts
-- Automated scanning tool.
-- AI-driven change classification engine.
-- Enrich Connector regeneration pipelines partially implemented from another internship project.
-- GitHub PR automation infrastructure.
-- Documentation and deployment guide.
 
----
 
 ## Backward Compatibility
 - No disruption to existing connectors.
