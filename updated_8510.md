@@ -32,11 +32,8 @@ This project introduces an AI-driven Dependabot-like system that automatically i
 ---
 
 ## Non Goals
-- Automate detection of upstream OpenAPI definition changes.
-- Recommend or regenerate connector updates using AI-based reasoning.
-- Provide automated pull requests that comply with repository standards.
-- Develop a persistent GitOps workflow integration model.
-- Minimize developer intervention while maintaining reliability and traceability.
+- Additinal authorization required and client wise openapi specs providing Dayforce like websites will be ignored.
+- S for Hana like highly differntiated connector structures will be excluded from the automation.
 
 
 ---
