@@ -31,6 +31,17 @@ This project introduces an AI-driven Dependabot-like system that automatically i
 
 ---
 
+## Non Goals
+- Automate detection of upstream OpenAPI definition changes.
+- Recommend or regenerate connector updates using AI-based reasoning.
+- Provide automated pull requests that comply with repository standards.
+- Develop a persistent GitOps workflow integration model.
+- Minimize developer intervention while maintaining reliability and traceability.
+
+
+---
+
+
 ## Motivation
 Maintaining an expanding set of OpenAPI-based connectors requires:
 
@@ -54,7 +65,7 @@ An AI-driven solution enables:
 ## Description
 ### Proposed Solution
 
-The proposed solution introduces an automated, AI-assisted workflow that continuously monitors, analyzes, and updates Ballerina connectors based on changes in external OpenAPI specifications. This approach is inspired by Dependabot, but adapted to the unique challenges of OpenAPI-driven connector maintenance. Following are the main tasks which will be implemented. 
+The proposed solution introduces an automated, AI-assisted workflow that continuously monitors, analyzes, and updates Ballerina connectors based on changes in external OpenAPI specifications. This approach is inspired by Dependabot, but adapted to the unique challenges of OpenAPI-driven connector maintenance. Following are the main tasks which will be implemented. Ballerina will be used as the programming language for implementation.
 
 #### 1. Registry Definition and Initialization
 
@@ -103,7 +114,7 @@ It defines, in a consistent machine-readable structure:
 
 The registry is intentionally JSON-based because it must be:
 - Machine readable
-- Easy to diff
+- Easy to diff and maintain
 - Usable in GitHub Actions / CI pipelines
 - Editable by humans
 - Extensible (submodules, version history, metadata)
@@ -147,6 +158,7 @@ Every connector entry follows the same high-level layout:
   "module_version": "X.Y.Z-SNAPSHOT",
   "default_branch": "main",
   "frequency": "<daily|weekly|monthly|quarterly>",
+  "connector_repository": "<connector repo's name inside github ballerina platform organization>",
   "openapi": {
     "source_type": "<enum>",
     "location": { },
@@ -194,28 +206,13 @@ Used when the vendor gives a direct URL to JSON/YAML (e.g., Elastic Cloud, Candi
 
 ```json
 "location": {
-  "primary_url": "https://example.com/openapi.yaml",
-  "format": "openapi|swagger|json|yaml",
-  "is_templated": false
+  "primary_url": "https://example.com/openapi.yaml"
 }
 ```
-
-**Example of templated URL (Dayforce):**
-```json
-"location": {
-  "primary_url": "https://www.dayforcehcm.com/api/{clientName}/swagger/docs/v1",
-  "format": "swagger",
-  "is_templated": true
-}
-```
-
-**Behavior:**
-- If `is_templated = true`: treat as `restricted_access`
-- If URL 403/401 occurs → notification only
 
 ##### 3.3 Vendor Docs Collection (Multiple Specs in One Page)
 
-Used for APIs like Candid and HubSpot, where one page contains multiple OpenAPI specs.
+Used for APIs like Candid , where one page contains multiple OpenAPI specs. Special case for the project scope.
 
 ```json
 "location": {
@@ -237,26 +234,15 @@ Used for APIs like Candid and HubSpot, where one page contains multiple OpenAPI 
   - Regeneration pipeline
 - Backward compatibility preserved for older multi-module connectors
 
-##### 3.4 Internal Repo (WSO2/Ballerina Repos)
 
-```json
-"location": {
-  "owner": "ballerina-platform",
-  "repo": "module-ballerinax-guidewire.insnow",
-  "spec_path": "docs/spec/openapi.yml"
-}
-```
 
-Used for internal or partially private connectors.
-
-##### 3.5 Restricted Access (e.g., Dayforce)
+##### 3.4 Restricted Access (e.g., Dayforce)
 
 These URLs require authentication and cannot be polled automatically.
 
 ```json
 "location": {
   "primary_url": "https://vendor.com/api/spec",
-  "format": "swagger",
   "requires_auth": true
 }
 ```
@@ -287,7 +273,7 @@ These URLs require authentication and cannot be polled automatically.
 
 
 ## Initial Feasibility Analysis
-- Ballerina connector structure is standardized—good for automation.
+- Ballerina connector structure is standardized.
 - Most upstream providers publish OpenAPI schemas or sources.
 - GitHub Actions can serve as repeatable execution pipeline.
 - AI summarization reduces cognitive load for maintainers.
@@ -297,7 +283,7 @@ These URLs require authentication and cannot be polled automatically.
 ## Implementation Artifacts
 - Automated scanning tool.
 - AI-driven change classification engine.
-- Connector regeneration pipelines.
+- Enrich Connector regeneration pipelines partially implemented from another internship project.
 - GitHub PR automation infrastructure.
 - Documentation and deployment guide.
 
