@@ -62,23 +62,10 @@ An AI-driven solution enables:
 ## Description
 ### Proposed Solution
 
-The proposed solution introduces an automated, AI-assisted workflow that continuously monitors, analyses, and updates Ballerina connectors based on changes in external OpenAPI specifications. This approach is inspired by Dependabot but adapted to the unique challenges of OpenAPI-driven connector maintenance.
+The proposed solution introduces an automated, AI-assisted workflow that continuously monitors, analyses, and updates Ballerina connectors based on changes in external OpenAPI specifications. This approach is inspired by Dependabot but adapted to the unique challenges of OpenAPI-driven connector maintenance. The following are the main tasks that will be implemented: Ballerina will be used as the programming language for implementation. The complete process will be working with 2 repositories named the Ballerina Library Repository (https://github.com/ballerina-platform/ballerina-library
+) and the API Specifications Repository (https://github.com/wso2/api-specs
+). Up to the part where OpenAPI change detection, pull request creation and sending will be done inside the API Specifications Repository , and the remaining connector generation, comparing changes and pull request sending for the relevant connector repository part will be done inside the Ballerina Library Repository.
 
-The complete process will operate using two GitHub repositories:
-
-Ballerina Library Repository
-(https://github.com/ballerina-platform/ballerina-library
-)
-
-API Specifications Repository
-(https://github.com/wso2/api-specs
-)
-
-Up to the stage of OpenAPI change detection, version comparison, and pull request creation, all automation will be executed within the API Specifications repository. This repository will be responsible for monitoring upstream OpenAPI sources and identifying specification updates.
-
-Once a change is detected and validated, the remaining steps—including connector regeneration, semantic comparison of generated connectors, and pull request creation for the affected connector modules—will be handled within the Ballerina Library repository, which hosts the actual connector implementations.
-
-This clear separation of responsibilities ensures better maintainability, aligns with existing repository ownership boundaries, and enables scalable automation across multiple OpenAPI-based connectors.
 #### 1. Registry Definition and Initialization
 
 A central registry will be created to store metadata for every generated connector. Each registry entry will describe the connector's OpenAPI source, access method, spec format, version tracking method, and generation details. Whenever a new connector is added or a new OpenAPI source is identified, the registry will be updated automatically. Certain fields, such as the connector module version, will be maintained by existing Ballerina build and release workflows.
