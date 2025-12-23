@@ -66,11 +66,11 @@ The proposed solution introduces an automated, AI-assisted workflow that continu
 
 #### 1. Registry Definition and Initialization
 
-A central registry will be created to store metadata for every generated connector. Each registry entry will describe the connector's OpenAPI source, access method, spec format, version tracking method, and generation details. Whenever a new connector is added or a new OpenAPI source is identified, the registry will be updated automatically. Certain fields, such as the connector module version, will be maintained by existing Ballerina build and release workflows.
+A central registry will be created to store metadata for every generated connector. Each registry entry will describe the connector's OpenAPI source, access method, spec format, version tracking method, OpenAPI spec updating frequency and generation details. Whenever a new connector is added or a new OpenAPI source is identified, the registry will be updated automatically. Certain fields, such as the connector module version, will be maintained by existing Ballerina build and release workflows.
 
 #### 2. Periodic Discovery and Version Checking
 
-A scheduled workflow will iterate through all registry entries daily/weekly/monthly/quarterly and check whether the corresponding OpenAPI specifications have changed. Since OpenAPI sources vary (GitHub repos, vendor URLs, public JSON files, etc.), the system will support multiple detection strategies such as **GitHub release tags**, **version indicators within the OpenAPI spec** or vendor-specific version indicators.
+A scheduled workflow will iterate through all registry entries daily/weekly/monthly/quarterly, as specified in frequency field of the registry and check whether the corresponding OpenAPI specifications have changed. The last checked field of the registry will be updated with the current date. Since OpenAPI sources vary (GitHub repos, vendor URLs, public JSON files, etc.), the system will support multiple detection strategies such as **GitHub release tags**, **version indicators within the OpenAPI spec** or vendor-specific version indicators.
 
 #### 3. Automated Update Workflow When Changes Are Detected
 
