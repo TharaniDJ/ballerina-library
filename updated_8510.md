@@ -70,14 +70,14 @@ A central registry will be created to store metadata for every generated connect
 
 #### 2. Periodic Discovery and Version Checking
 
-A scheduled workflow will iterate through all registry entries daily/weekly/monthly/quarterly, as specified in frequency field of the registry and check whether the corresponding OpenAPI specifications have changed. The last checked field of the registry will be updated with the current date. Since OpenAPI sources vary (GitHub repos, vendor URLs, public JSON files, etc.), the system will support multiple detection strategies such as **GitHub release tags**, **version indicators within the OpenAPI spec** or vendor-specific version indicators.
+A scheduled workflow will iterate through all registry entries daily/weekly/monthly/quarterly, as specified in frequency field of the registry and check whether the corresponding OpenAPI specifications have changed. The last checked field of the registry will be updated with the current date and time. Since OpenAPI sources vary (GitHub repos, vendor URLs, public JSON files, etc.), the system will support multiple detection strategies such as **GitHub release tags**, **version indicators within the OpenAPI spec** or vendor-specific version indicators.
 
 #### 3. Automated Update Workflow When Changes Are Detected
 
 If a change is detected in an OpenAPI specification, the bot will perform a series of automated actions:
 
 ##### (i) Update OpenAPI Specification Repository
-The updated OpenAPI file will be added to the centralized API specification repository, and the system will create a pull request containing the new spec version.
+The updated OpenAPI file will be added to the centralized API specification repository, and the system will create a pull request containing the new spec version. Since this doesn't involve any AI related work and only updating the content which is in the updated OpenAPI spec, this will be merged to the repository without human reviewal. 
 
 ##### (ii) Regenerate the Corresponding Connector
 The system will then regenerate the connector in its dedicated repository using the existing AI-driven connector generation pipeline (developed by another internship project) supported by Ballerina. 
@@ -245,7 +245,7 @@ These URLs require authentication and cannot be polled automatically.
 
 **Behavior:**
 - System attempts access monthly
-- If inaccessible → Slack/Team Chat notification
+- If inaccessible → Discord/Google Chat notification
 - Marked as manual update only
 
 #### 4. Version Info Structure
