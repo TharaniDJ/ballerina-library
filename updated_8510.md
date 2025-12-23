@@ -77,7 +77,7 @@ A scheduled workflow will iterate through all registry entries daily/weekly/mont
 If a change is detected in an OpenAPI specification, the bot will perform a series of automated actions:
 
 ##### (i) Update OpenAPI Specification Repository
-The updated OpenAPI file will be added to the centralized API specification repository, and the system will create a pull request containing the new spec version. Since this doesn't involve any AI related work and only updating the content which is in the updated OpenAPI spec, this will be merged to the repository without human reviewal. 
+The updated OpenAPI file will be added to the centralised API specification repository, and the system will create a pull request containing the new spec version. Since this doesn't involve any AI-related work and only updating the content which is in the updated OpenAPI spec, this will be merged to the repository without human reviewal. 
 
 ##### (ii) Regenerate the Corresponding Connector
 The system will then regenerate the connector in its dedicated repository using the existing AI-driven connector generation pipeline (developed by another internship project) supported by Ballerina. 
