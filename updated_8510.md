@@ -62,7 +62,9 @@ An AI-driven solution enables:
 ## Description
 ### Proposed Solution
 
-The proposed solution introduces an automated, AI-assisted workflow that continuously monitors, analyses, and updates Ballerina connectors based on changes in external OpenAPI specifications. This approach is inspired by Dependabot but adapted to the unique challenges of OpenAPI-driven connector maintenance. The following are the main tasks that will be implemented: Ballerina will be used as the programming language for implementation. The complete process will be working with 2 repositories named the ballerina-library repository and the api-specs repository. Up to the part where OpenAPI change detection, pull request creation and sending will be done inside the api-specs repository, and the remaining connector generation, comparing changes and pull request sending for the relevant connector repository part will be done inside the ballerina-library repository.
+The proposed solution introduces an automated, AI-assisted workflow that continuously monitors, analyses, and updates Ballerina connectors based on changes in external OpenAPI specifications. This approach is inspired by Dependabot but adapted to the unique challenges of OpenAPI-driven connector maintenance. The following are the main tasks that will be implemented: Ballerina will be used as the programming language for implementation. The complete process will be working with 2 repositories named the Ballerina Library Repository (https://github.com/ballerina-platform/ballerina-library
+) and the API Specifications Repository (https://github.com/wso2/api-specs
+). Up to the part where OpenAPI change detection, pull request creation and sending will be done inside the API Specifications Repository , and the remaining connector generation, comparing changes and pull request sending for the relevant connector repository part will be done inside the Ballerina Library Repository.
 
 #### 1. Registry Definition and Initialization
 
