@@ -70,7 +70,7 @@ A central registry will be created to store metadata for every generated connect
 
 #### 2. Periodic Discovery and Version Checking
 
-A scheduled workflow will iterate through all registry entries daily/weekly/monthly/quarterly and check whether the corresponding OpenAPI specifications have changed. Since OpenAPI sources vary (GitHub repos, vendor URLs, public JSON files, etc.), the system will support multiple detection strategies such as **GitHub release tags**, **version indicators within the OpenAPI spec** or vendor-specific version indicators.
+A scheduled workflow will iterate through all registry entries daily/weekly/monthly/quarterly, as specified in frequency field of the registry and check whether the corresponding OpenAPI specifications have changed. The last checked field of the registry will be updated with the current date. Since OpenAPI sources vary (GitHub repos, vendor URLs, public JSON files, etc.), the system will support multiple detection strategies such as **GitHub release tags**, **version indicators within the OpenAPI spec** or vendor-specific version indicators.
 
 #### 3. Automated Update Workflow When Changes Are Detected
 
