@@ -8,7 +8,7 @@
 - **Created date**
   - 2025-12-09
 - **Issue**
-  - [8510](https://github.com/ballerina-platform/ballerina-library/issues/8510)
+  - [1416](https://github.com/ballerina-platform/ballerina-spec/issues/1416)
 - **State**
   - InProgress
 
